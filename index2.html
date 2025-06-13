@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Qué suculenta necesitas?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --verde-oscuro: #4b8357;
+      --verde-claro: #cfe5d3;
+      --beige: #faf6ea;
+      --dorado: #b9a86a;
+      --blanco: #fff;
+      --gris: #f4f4f4;
+      --gris-claro: #e8e8e8;
+      --sombra: 0 4px 24px rgba(77, 77, 77, 0.13);
+      --rosa: #ffb3b3;
+      --azul: #b1e0fa;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      background: linear-gradient(135deg, var(--gris) 60%, var(--beige));
+      margin: 0;
+      min-height: 100vh;
+      color: #363636;
+    }
+    h1 {
+      text-align: center;
+      font-family: 'Montserrat', 'Segoe UI', sans-serif;
+      letter-spacing: 1px;
+      color: var(--verde-oscuro);
+      margin-top: 38px;
+      margin-bottom: 16px;
+      font-size: 2.3em;
+      font-weight: 700;
+    }
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto 54px auto;
+      gap: 32px;
+      justify-content: center;
+    }
+    .side {
+      min-width: 270px;
+      max-width: 320px;
+      background: var(--blanco);
+      border-radius: 18px;
+      box-shadow: var(--sombra);
+      padding: 30px 26px 22px 26px;
+      height: fit-content;
+      transition: box-shadow 0.25s;
+      border: 1px solid var(--verde-claro);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 24px;
+    }
+    .side label {
+      font-size: 1.12em;
+      color: var(--verde-oscuro);
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: block;
+      letter-spacing: 0.3px;
+    }
+    .side select {
+      width: 100%;
+      font-size: 1.05em;
+      padding: 9px 7px;
+      border-radius: 7px;
+      border: 1.5px solid var(--verde-claro);
+      background: var(--gris-claro);
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .side select:focus {
+      border-color: var(--verde-oscuro);
+    }
+    #mini-info {
+      font-size: 1.04em;
+      min-height: 68px;
+      color: #3b3b3b;
+      margin-top: 12px;
+      border-left: 3px solid var(--dorado);
+      padding-left: 12px;
+      background: #f7f7f2;
+      border-radius: 5px;
+    }
+    .side .voice-section {
+      margin-top: 16px;
+      padding: 18px 14px 12px 14px;
+      border: 2px dashed var(--azul);
+      border-radius: 13px;
+      background: #f0fcff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .side .voice-section label {
+      color: #3080b4;
+      font-weight: 700;
+      font-size: 1.13em;
+      margin-bottom: 0;
+      letter-spacing: 0.2px;
+    }
+    .voice-btn {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: linear-gradient(90deg, #2ea9c3 60%, #92e1f8 100%);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 9px 18px;
+      font-size: 1.09em;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #b7d6bc3d;
+      transition: background 0.15s, box-shadow 0.18s;
+      outline: none;
+    }
+    .voice-btn:hover, .voice-btn:focus {
+      background: linear-gradient(90deg, #2398a9 60%, #74b8c4 100%);
+      box-shadow: 0 2px 12px #a0d2ad55;
+    }
+    /* Voice icon */
+    .voice-btn svg {
+      height: 1.35em;
+      width: 1.35em;
+      vertical-align: middle;
+      fill: #fff;
+      filter: drop-shadow(0 0 1px #1b7686);
+    }
+
+    /* Fotos galeria */
+    .plant-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 0 0;
+      justify-content: center;
+    }
+    .plant-thumb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 92px;
+      cursor: pointer;
+      border-radius: 7px;
+      background: #f7faf6;
+      border: 2px solid transparent;
+      transition: border-color 0.17s, box-shadow 0.13s;
+      box-shadow: 0 1px 4px #c4d7b733;
+      padding: 7px 2px 4px 2px;
+    }
+    .plant-thumb.selected, .plant-thumb:hover {
+      border-color: var(--verde-oscuro);
+      box-shadow: 0 2px 10px #b2e1be33;
+    }
+    .plant-thumb img {
+      width: 74px;
+      height: 74px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #e0e9e2;
+      margin-bottom: 5px;
+    }
+    .plant-thumb span {
+      font-size: 0.97em;
+      color: #457c4f;
+      text-align: center;
+      font-weight: 500;
+      line-height: 1.13;
+    }
+
+    .main-form {
+      flex: 1;
+      background: var(--blanco);
+      border-radius: 18px;
+      box-shadow: var(--sombra);
+      padding: 32px 44px 28px 44px;
+      min-width: 320px;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      border: 1px solid var(--verde-claro);
+    }
+    .main-form label {
+      font-size: 1.09em;
+      font-weight: 500;
+      margin-bottom: 2px;
+      color: var(--verde-oscuro);
+      letter-spacing: 0.2px;
+    }
+    .main-form select {
+      font-size: 1.04em;
+      padding: 9px 7px;
+      border-radius: 7px;
+      border: 1.5px solid var(--verde-claro);
+      background: var(--gris-claro);
+      margin-bottom: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .main-form select:focus {
+      border-color: var(--verde-oscuro);
+    }
+    .main-form button {
+      margin-top: 16px;
+      font-size: 1.15em;
+      padding: 15px 0;
+      background: linear-gradient(90deg, #fbbd22 10%, #ff7690 90%);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 2px 14px #e1b7b73d;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.09s;
+      outline: none;
+      border-bottom: 3px solid #b8702b;
+    }
+    .main-form button:hover, .main-form button:focus {
+      background: linear-gradient(90deg, #ff7690 10%, #fbbd22 90%);
+      box-shadow: 0 2px 18px #ffc9c955;
+      transform: scale(1.025);
+      border-bottom: 3px solid #fbbd22;
+    }
+    #resultado {
+      margin: 40px auto 36px auto;
+      max-width: 620px;
+      background: var(--blanco);
+      border-radius: 18px;
+      box-shadow: var(--sombra);
+      padding: 30px 30px 26px 30px;
+      display: none;
+      border: 1px solid var(--verde-claro);
+    }
+    #resultado img {
+      float: right;
+      max-width: 180px;
+      max-height: 160px;
+      margin-left: 18px;
+      border-radius: 11px;
+      background: #e0e9e2;
+      box-shadow: 0 2px 12px #b7d6bc3d;
+    }
+    #resultado h2 {
+      margin-top: 0;
+      color: var(--verde-oscuro);
+      font-weight: 700;
+      font-size: 1.38em;
+      letter-spacing: 0.3px;
+    }
+    .respuestas {
+      margin-top: 26px;
+      margin-bottom: 13px;
+    }
+    .respuestas ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+    .respuestas li {
+      margin-bottom: 4px;
+      font-size: 1.03em;
+    }
+    .conclusion {
+      margin: 28px 0 0 0;
+      padding: 19px 15px 18px 20px;
+      background: var(--beige);
+      border-left: 6px solid var(--dorado);
+      border-radius: 7px;
+      font-size: 1.09em;
+      color: #594e2d;
+      line-height: 1.62;
+      box-shadow: 0 1px 6px #e2e2c241;
+    }
+    @media (max-width: 1020px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+      .side, .main-form {
+        max-width: 98vw;
+        min-width: unset;
+      }
+      #resultado img { float: none; display: block; margin: 0 auto 14px auto; }
+      .plant-gallery { justify-content: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .main-form {
+        padding: 18px 5vw 12px 5vw;
+      }
+      .side {
+        padding: 20px 3vw 14px 3vw;
+      }
+      #resultado {
+        padding: 18px 4vw 18px 4vw;
+      }
+      .plant-gallery { gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Qué suculenta necesitas?</h1>
+  <div class="container">
+    <aside class="side">
+      <form id="suculenta-form" autocomplete="off">
+        <label for="planta"><b>Elegí una suculenta</b></label>
+        <select id="planta" name="planta" required>
+          <option value="">-- Elegí una suculenta --</option>
+        </select>
+        <div class="plant-gallery" id="plant-gallery"></div>
+        <div id="mini-info"></div>
+      </form>
+      <div class="voice-section" id="voice-section">
+        <label>¿Querés hacer la entrevista hablando?</label>
+        <button type="button" class="voice-btn" id="voice-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 16a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 0 0-7 0v5A3.5 3.5 0 0 0 12 16zm5-3.5a1 1 0 0 1 2 0 7 7 0 0 1-14 0 1 1 0 1 1 2 0 5 5 0 0 0 10 0zm-5 7a1 1 0 0 1 1 1v.5a1 1 0 1 1-2 0V20a1 1 0 0 1 1-1z"/></svg>
+          <span id="voice-btn-text">Empezar entrevista hablada</span>
+        </button>
+        <div id="voice-status" style="font-size:0.98em;color:#3080b4;margin-top:4px;height:21px;"></div>
+      </div>
+    </aside>
+    <main class="main-form">
+      <form id="form-suculenta" autocomplete="off">
+        <label for="signo">¿Cuál es tu signo zodiacal?</label>
+        <select id="signo" name="signo" required>
+          <option value="">Selecciona tu signo</option>
+          <option>Aries</option>
+          <option>Tauro</option>
+          <option>Géminis</option>
+          <option>Cáncer</option>
+          <option>Leo</option>
+          <option>Virgo</option>
+          <option>Libra</option>
+          <option>Escorpio</option>
+          <option>Sagitario</option>
+          <option>Capricornio</option>
+          <option>Acuario</option>
+          <option>Piscis</option>
+        </select>
+        <label for="vida">¿Qué aspecto de tu vida te gustaría potenciar o equilibrar?</label>
+        <select id="vida" name="vida" required>
+          <option value="">Selecciona una opción</option>
+          <option>Amor</option>
+          <option>Salud</option>
+          <option>Dinero</option>
+          <option>Familia</option>
+          <option>Trabajo</option>
+          <option>Creatividad</option>
+          <option>Equilibrio emocional</option>
+          <option>Crecimiento espiritual</option>
+          <option>Otro</option>
+        </select>
+        <label for="elemento">¿Con qué elemento te identificas más?</label>
+        <select id="elemento" name="elemento" required>
+          <option value="">Selecciona un elemento</option>
+          <option>Fuego</option>
+          <option>Tierra</option>
+          <option>Aire</option>
+          <option>Agua</option>
+        </select>
+        <label for="buscas">¿Qué buscas en una planta?</label>
+        <select id="buscas" name="buscas" required>
+          <option value="">Selecciona una opción</option>
+          <option>Facilidad de cuidado</option>
+          <option>Floración</option>
+          <option>Color</option>
+          <option>Resistencia</option>
+          <option>Forma</option>
+          <option>Propiedades energéticas</option>
+          <option>Otra</option>
+        </select>
+        <label for="color">¿Qué color te atrae más?</label>
+        <select id="color" name="color" required>
+          <option value="">Selecciona un color</option>
+          <option>Verde</option>
+          <option>Rojo</option>
+          <option>Naranja</option>
+          <option>Amarillo</option>
+          <option>Rosa</option>
+          <option>Violeta</option>
+          <option>Azul</option>
+          <option>Blanco</option>
+          <option>Gris</option>
+          <option>Multicolor</option>
+        </select>
+        <label for="nivel">¿Prefieres trabajar tu energía a nivel…?</label>
+        <select id="nivel" name="nivel" required>
+          <option value="">Selecciona un nivel</option>
+          <option>Físico</option>
+          <option>Mental</option>
+          <option>Emocional</option>
+          <option>Espiritual</option>
+          <option>Todos</option>
+        </select>
+        <button type="submit" id="submit-btn">
+          🌈✨ Ver mi lectura personalizada ✨🌱
+        </button>
+      </form>
+    </main>
+  </div>
+  <div id="resultado"></div>
+  <script>
+    // --- PLANTAS Y FOTOS ---
+    const plantas = {
+      el_cactus_cacahuete: {
+        nombre: "El Cactus Cacahuete",
+        descripcion: "(Echinopsis chamaecereus) es una verdadera delicia para los amantes de las suculentas. Este cactus de tallos delgados y dedos, que parecen cacahuetes, forma densos grupos que se extienden con gracia. Sus suaves espinas apenas se notan, haciendo de él una planta muy amigable al tacto. En primavera y verano, se adorna con una espectacular floración de vibrantes flores de color naranja o rojo intenso, creando un contraste asombroso con sus tallos verdes. Es fácil de cuidar y perfecto para añadir un toque de alegría y color a cualquier espacio.",
+        archivo: "cactus-cacahuete",
+        energia: "alegría, renovación, vitalidad"
+      },
+      graptosedum_california_sunset: {
+        nombre: "Graptosedum 'California Sunset'",
+        descripcion: "Es una suculenta híbrida excepcionalmente popular y visualmente impactante, creada del cruce entre un Graptopetalum y un Sedum. Su característica más distintiva es su espectacular cambio de coloración. Las rosetas de hojas carnosas y algo alargadas, inicialmente de un tono verde pálido o amarillo verdoso, se transforman en magníficos tonos de naranja, rosa, rojo cobrizo y bronce cuando se exponen a una luz solar brillante y a condiciones de estrés (como temperaturas frescas o riego moderado). Es esta paleta de colores vibrantes, que recuerda a una puesta de sol, la que le da su nombre.",
+        archivo: "graptosedum",
+        energia: "transformación, flexibilidad, belleza interior y exterior"
+      },
+      ojo_de_dragon: {
+        nombre: "Ojo de Dragón",
+        descripcion: "Huernia schneideriana es una especie suculenta perenne de pequeño porte muy común en colecciones a nivel mundial; en algunas ocasiones es llamada como ojo de dragón por la coloración típica de sus flores. Esta especie pertenece a la familia Apocynaceae y dentro del género Huernia, es una de las más comunes de encontrar en los jardines.",
+        archivo: "huerniaojodedragon",
+        energia: "protección, intuición, percepción"
+      },
+      callisia_navicularis: {
+        nombre: "Callisia Navicularis",
+        descripcion: "\"Joya de la Cama\" o \"Planta de Cadena de Tortuga\", esta especie se distingue por sus hojas gruesas y carnosas dispuestas de manera imbricada (superpuestas como tejas) a lo largo de tallos rastreros. Cada hoja tiene una forma distintiva, similar a la quilla de un barco o una pequeña canoa, lo que le da un aspecto muy arquitectónico. Su coloración suele ser un verde intenso, pero lo que la hace realmente atractiva es su capacidad de desarrollar tonos púrpuras o rojizos en el envés de las hojas o en toda la superficie cuando recibe abundante luz solar, especialmente en condiciones de estrés leve o temperaturas más frescas. Algunas variedades pueden incluso presentar un patrón jaspeado o moteado en la superficie de las hojas.",
+        archivo: "callisianavicularis",
+        energia: "resiliencia, protección, equilibrio"
+      },
+      cactus_coral: {
+        nombre: "\"Cactus Coral\" o \"Cactus Arroz\"",
+        descripcion: "La Rhipsalis cereuscula, es una especie fascinante dentro del género Rhipsalis, que se diferencia de los cactus desérticos más típicos por su naturaleza epífita, es decir, que crece sobre otras plantas (como los árboles) en su hábitat natural en las selvas tropicales de Sudamérica (incluyendo Uruguay). Lo más característico de esta planta son sus tallos delgados, ramificados y segmentados, que crecen en cascada, creando una densa maraña de \"arroz\" o \"coral\" verde vibrante. Estos segmentos son pequeños y cilíndricos, y a menudo desarrollan un ligero tono rojizo en las puntas cuando se exponen a una buena cantidad de luz.",
+        archivo: "cactuscoral-2",
+        energia: "adaptabilidad, conexión, ligereza"
+      },
+      madreperla: {
+        nombre: "Madreperla",
+        descripcion: "Graptopetalum paraguayense. Sus hojas son de un color entre el verde y el gris (con un tono rosado), una defensa que han desarrollado para evitar las quemaduras por el sol. Debido a su porte tan llamativo y a las necesidades de su cultivo es una suculenta colgante perfecta para el balcón o en la terraza.",
+        archivo: "madreperla-2",
+        energia: "belleza interior, protección, suavidad"
+      },
+      mammillaria_vetula: {
+        nombre: "Mammillaria vetula",
+        descripcion: "Es un cactus encantador y muy popular, apreciado por su forma globular y su facilidad de cultivo. Como muchas Mammillaria, su principal característica es la presencia de tubérculos (mamilas) en lugar de costillas, de los cuales emergen las espinas. En el caso específico de Mammillaria vetula, una característica destacada es su denso y hermoso patrón de espinas, a menudo finas y como de papel, que cubren casi por completo el cuerpo del cactus, dándole una apariencia \"lanuda\" o \"peluda\", especialmente en las variedades como Mammillaria vetula ssp. gracilis (comúnmente conocida como \"Cactus de dedal\" o \"Thimble Cactus\"). Estas espinas no suelen ser muy punzantes al tacto.",
+        archivo: "mammillariavetula",
+        energia: "protección, suavidad, crecimiento interior"
+      },
+      mammillaria_prolifera: {
+        nombre: "Mammillaria prolifera",
+        descripcion: "\"Cactus de Huevo de Pájaro\" o \"Cactus de Bolas de Nieve\" (aunque este último se comparte con otras especies), es un cactus muy popular y apreciado por su proliferación notoria y su atractivo aspecto \"peludo\" o \"lanudo\". Su característica más destacada es su increíble capacidad para producir numerosos hijuelos o \"bolas\" desde la base, formando rápidamente densos grupos o cúmulos que pueden llenar una maceta entera. Estos hijuelos se desprenden fácilmente, lo que la hace muy sencilla de propagar.",
+        archivo: "mammillariaprolifera",
+        energia: "abundancia, multiplicidad, comunidad"
+      },
+      echeveria_elegans: {
+        nombre: "Echeveria elegans",
+        descripcion: "\"Rosa de Alabastro\", es una de las suculentas más clásicas, populares y queridas, famosa por su belleza simétrica y su facilidad de cultivo. Su característica más distintiva es la formación de densas y perfectas rosetas de hojas carnosas, de un delicado color verde azulado o verde grisáceo. Estas hojas, de forma espatulada, suelen tener una capa cerosa (pruina) que les da un aspecto mate y las protege del sol intenso. La disposición de las hojas es tan regular y simétrica que a menudo se asemeja a una rosa en plena floración.",
+        archivo: "echeveria-elegans-2",
+        energia: "armonía, belleza, perfección"
+      },
+      crassula_expansa_subsp_fragilis: {
+        nombre: "Crassula expansa subsp. fragilis",
+        descripcion: "Como su nombre lo sugiere (\"fragilis\"), se caracteriza por sus tallos y ramas delicadas y ligeramente quebradizas. Esto, lejos de ser un defecto, le confiere una textura y una forma de crecimiento muy particular y atractiva. A menudo se la conoce como \"Crassula Hiedra\" o \"Crassula Miniatura Trepadora\" por su hábito de crecimiento. Sus tallos son finos, ramificados y pueden ser rastreros o ligeramente trepadores/colgantes, lo que la hace ideal para cestas colgantes o para derramarse sobre los bordes de las macetas.",
+        archivo: "crassulafragilis",
+        energia: "delicadeza, adaptación, flexibilidad"
+      },
+      opuntia_monacantha_fma_variegada_monstruosa: {
+        nombre: "Opuntia monacantha fma. variegada monstruosa",
+        descripcion: "Es una variante excepcional y muy buscada de la Opuntia monacantha, que combina varias características distintivas en una sola planta, convirtiéndola en una verdadera pieza de colección y una joya visual.",
+        archivo: "monstruosa",
+        energia: "originalidad, fortaleza, sanación"
+      }
+    };
+
+    // Llenar select y galería
+    const plantSelect = document.getElementById('planta');
+    const gallery = document.getElementById('plant-gallery');
+    function fillPlantSelectAndGallery() {
+      plantSelect.innerHTML = `<option value="">-- Elegí una suculenta --</option>`;
+      gallery.innerHTML = '';
+      Object.entries(plantas).forEach(([key, val]) => {
+        // Option in select
+        plantSelect.innerHTML += `<option value="${key}">${val.nombre}</option>`;
+        // Gallery thumb
+        const thumb = document.createElement('div');
+        thumb.className = 'plant-thumb';
+        thumb.title = val.nombre;
+        buscarImagen(val.archivo, (ruta) => { thumb.querySelector('img').src = ruta; });
+        thumb.innerHTML = `<img src="fotos/no-disponible.png" alt="${val.nombre}"><span>${val.nombre}</span>`;
+        thumb.addEventListener('click', () => {
+          plantSelect.value = key;
+          document.querySelectorAll('.plant-thumb').forEach(x => x.classList.remove('selected'));
+          thumb.classList.add('selected');
+          updateMiniInfo(key);
+        });
+        gallery.appendChild(thumb);
+      });
+    }
+
+    function updateMiniInfo(key) {
+      const mini = document.getElementById('mini-info');
+      if (plantas[key]) {
+        mini.innerHTML = `<b>${plantas[key].nombre}:</b> <span>${plantas[key].energia.charAt(0).toUpperCase() + plantas[key].energia.slice(1)}</span>`;
+        document.querySelectorAll('.plant-thumb').forEach(x => {
+          if (x.textContent.trim() === plantas[key].nombre) x.classList.add('selected');
+          else x.classList.remove('selected');
+        });
+      } else {
+        mini.innerHTML = '';
+        document.querySelectorAll('.plant-thumb').forEach(x => x.classList.remove('selected'));
+      }
+    }
+
+    plantSelect.addEventListener('change', function() {
+      updateMiniInfo(this.value);
+    });
+
+    // Buscar imagen
+    function buscarImagen(nombreBase, callback) {
+      const exts = ["jpg", "jpeg", "png"];
+      let idx = 0;
+      function probar() {
+        if (idx >= exts.length) {
+          callback("fotos/no-disponible.png");
+          return;
+        }
+        const ruta = `fotos/${nombreBase}.${exts[idx]}`;
+        const img = new window.Image();
+        img.onload = () => callback(ruta);
+        img.onerror = () => { idx++; probar(); };
+        img.src = ruta;
+      }
+      probar();
+    }
+
+    // ------- FORM PRINCIPAL Y CONCLUSION --------
+    const signosElementos = {
+      Aries: "Fuego", Leo: "Fuego", Sagitario: "Fuego",
+      Tauro: "Tierra", Virgo: "Tierra", Capricornio: "Tierra",
+      Géminis: "Aire", Libra: "Aire", Acuario: "Aire",
+      Cáncer: "Agua", Escorpio: "Agua", Piscis: "Agua"
+    };
+    function articuloAspecto(aspecto) {
+      const femeninos = [
+        "Salud", "Familia", "Creatividad", "Abundancia", "Armonía", "Estabilidad",
+        "Protección", "Suavidad", "Belleza", "Resiliencia", "Comunidad",
+        "Floración", "Forma", "Energía", "Paz interior", "Ternura",
+        "Percepción", "Intuición", "Autoafirmación"
+      ];
+      if (aspecto === "Equilibrio emocional" || aspecto === "Crecimiento espiritual") return "el";
+      if (femeninos.includes(aspecto)) return "la";
+      if (aspecto === "Dinero" || aspecto === "Trabajo" || aspecto === "Amor") return "el";
+      return "el";
+    }
+    function mensajeSorpresa(signo, aspecto, elemento, nivel, planta, color) {
+      const secretosPorSigno = {
+        Aries: "En tu interior arde la chispa del primer aliento de la creación, y tu energía es capaz de abrir caminos donde nada existía.",
+        Tauro: "Tu perseverancia es raíz y fruto. Lo que siembras en tu vida florece con paciencia, y tu corazón busca la belleza oculta en lo simple.",
+        Géminis: "Tu palabra es puente entre mundos. Como el viento, llevas mensajes y siembras ideas; tu misión es conectar lo disperso.",
+        Cáncer: "En tus emociones reside la memoria del alma colectiva. Eres el guardián de la ternura y la intuición profunda.",
+        Leo: "Tu luz es reflejo de la fuente primordial. Cuando brillas, inspiras a otros a descubrir su propio sol.",
+        Virgo: "La perfección que buscás es el reflejo de un orden profundo. Tu capacidad de servicio sana y purifica tu entorno.",
+        Libra: "Tu alma anhela el equilibrio del universo. Allí donde intervenís, la armonía se vuelve posible.",
+        Escorpio: "Portás el secreto de la transformación. En vos, lo oculto se revela y la sombra se convierte en poder.",
+        Sagitario: "Tu mirada trasciende horizontes. Sos portador de la verdad y la expansión, flecha que apunta al sentido.",
+        Capricornio: "Tu disciplina es puente entre el cielo y la tierra. Sos arquitecto de realidades y guardián de la perseverancia.",
+        Acuario: "Sos canal de la nueva visión. Tu originalidad siembra futuro y tu mente es manantial de libertad.",
+        Piscis: "En tu sensibilidad habita la compasión universal. Donde otros ven caos, vos percibís la unidad de todas las almas."
+      };
+      const secretosPorAspecto = {
+        Amor: "El amor es la energía que sostiene la existencia. Cuando lo invocás, el universo conspira a tu favor.",
+        Salud: "La salud proviene del equilibrio interno. Si honrás tu cuerpo, el espíritu florece.",
+        Dinero: "La prosperidad es el reflejo de la confianza en recibir. Abre tu mano y la abundancia fluirá.",
+        Familia: "La familia es el primer círculo sagrado. Allí se revela la enseñanza del dar y el recibir.",
+        Trabajo: "Tu labor es el altar donde tu alma se expresa. Cada acción consciente te acerca a tu propósito.",
+        Creatividad: "La creatividad es la chispa divina en acción. Cuando creás, te conectás con la fuente primordial.",
+        "Equilibrio emocional": "El equilibrio emocional es la llave para que la energía fluya sin bloqueos. Si te escuchás, tu corazón se vuelve brújula.",
+        "Crecimiento espiritual": "El crecimiento espiritual es el viaje del alma hacia la luz. Cada paso interior es un retorno a tu origen.",
+        Otro: "Aquello que buscás, ya está en tu interior. La respuesta se revela cuando te permitís recibir."
+      };
+      const mensajeColor = {
+        Verde: "El verde renueva y sana, trayendo esperanza y expansión.",
+        Rojo: "El rojo despierta la pasión y da fuerza vital.",
+        Naranja: "El naranja enciende la creatividad y la alegría.",
+        Amarillo: "El amarillo ilumina la mente y atrae claridad.",
+        Rosa: "El rosa activa la ternura y el amor incondicional.",
+        Violeta: "El violeta transmuta y libera, abriendo el camino a la transformación.",
+        Azul: "El azul calma y conecta con la intuición profunda.",
+        Blanco: "El blanco purifica y expande la conciencia.",
+        Gris: "El gris equilibra las polaridades y aporta neutralidad.",
+        Multicolor: "La mezcla de colores simboliza la integración de todos los caminos."
+      };
+      const mensajeNivel = {
+        Físico: "Esta planta te ayudará a enraizar tu energía y fortalecer tu cuerpo.",
+        Mental: "Favorecerá la claridad de pensamiento y la apertura a nuevas ideas.",
+        Emocional: "Te acompañará en el reconocimiento y sanación de tus emociones.",
+        Espiritual: "Es un canal para elevar tu conciencia y acercarte a tu esencia.",
+        Todos: "Trabajará en todos los planos, favoreciendo la integración total."
+      };
+      return `<b>Sorpresa:</b> ${secretosPorSigno[signo] || ""}<br>
+      <b>Clave para tu vida:</b> ${secretosPorAspecto[aspecto] || ""}<br>
+      <b>Vibración del color:</b> ${mensajeColor[color] || ""}<br>
+      <b>Nivel energético:</b> ${mensajeNivel[nivel] || ""}`;
+    }
+    function generarConclusion(info, respuestas) {
+      const signo = respuestas[0].valor;
+      const aspecto = respuestas[1].valor;
+      const elemento = respuestas[2].valor;
+      const buscas = respuestas[3].valor;
+      const color = respuestas[4].valor;
+      const nivel = respuestas[5].valor;
+      const elementoZ = signosElementos[signo];
+      const elementoPreferido = elemento;
+      let articulo = articuloAspecto(aspecto);
+
+      let conclusion = `<b>Lectura personalizada:</b><br><br>`;
+      conclusion += `La <b>${info.nombre}</b> es una planta asociada con la energía de ${info.energia}. `;
+      conclusion += `Tu signo es <b>${signo}</b> (${elementoZ}), lo que genera una interacción muy especial entre tu naturaleza y la vibración de esta suculenta, especialmente en lo relacionado con ${articulo} ${aspecto.toLowerCase()}. `;
+      if (elementoZ === elementoPreferido) {
+        conclusion += `Esta afinidad elemental fortalece la sintonía natural, facilitando el equilibrio y la integración de tu energía. `;
+      } else {
+        conclusion += `Aunque tu signo pertenece al elemento ${elementoZ.toLowerCase()}, tu inclinación hacia ${elementoPreferido.toLowerCase()} indica una búsqueda de balance complementario. `;
+      }
+      conclusion += `<br><br>El hecho de que busques ${buscas.toLowerCase()} y te atraiga el color ${color.toLowerCase()} sugiere que tu campo personal está receptivo a la vibración específica de esta suculenta. El color elegido actúa como resonador, amplificando el efecto transformador y sanador de la planta sobre tu energía. `;
+      conclusion += `<br><br><b>En síntesis:</b> la <b>${info.nombre}</b> puede ayudarte a equilibrar y potenciar tu energía, actuando como un puente entre tu búsqueda interna y las fuerzas universales. Si la cuidás y te conectás con su presencia, contribuirá a tu proceso de sanación y expansión personal.<br>`;
+      conclusion += `<br>Recuerda: cada planta puede ser un canal de luz y conciencia. Toda elección consciente es un paso hacia tu plenitud.<br><br>`;
+      conclusion += `<div style="margin-top:14px">${mensajeSorpresa(signo, aspecto, elemento, nivel, info.nombre, color)}</div>`;
+      return conclusion;
+    }
+
+    // Icono flecha de "enviar" estilo mail/post (SVG)
+    const sendArrowSVG = `
+      <svg viewBox="0 0 24 24" width="26" height="26" style="vertical-align:middle;" fill="#fff">
+        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+      </svg>
+    `;
+
+    // Email validación simple
+    function validarEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    }
+
+    document.getElementById('form-suculenta').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const plantaSeleccionada = document.getElementById('planta').value;
+      if (!plantaSeleccionada) {
+        alert('Por favor, elegí una suculenta en el costado.');
+        document.getElementById('planta').focus();
+        return;
+      }
+      const info = plantas[plantaSeleccionada];
+      const fd = new FormData(this);
+      const respuestas = [
+        { titulo: "Signo zodiacal", valor: fd.get('signo') },
+        { titulo: "Aspecto de la vida que te gustaría potenciar o equilibrar", valor: fd.get('vida') },
+        { titulo: "Elemento con el que te identificás más", valor: fd.get('elemento') },
+        { titulo: "¿Qué buscas en una planta?", valor: fd.get('buscas') },
+        { titulo: "Color que más te atrae", valor: fd.get('color') },
+        { titulo: "Nivel para trabajar tu energía", valor: fd.get('nivel') }
+      ];
+      const cont = document.getElementById('resultado');
+      buscarImagen(info.archivo, (ruta) => {
+        const conclusion = generarConclusion(info, respuestas);
+        cont.innerHTML = `
+          <img src="${ruta}" alt="${info.nombre}">
+          <h2>${info.nombre}</h2>
+          <p>${info.descripcion}</p>
+          <div class="respuestas">
+            <h3>Tus respuestas:</h3>
+            <ul>
+              ${respuestas.map(r => `<li><b>${r.titulo}:</b> ${r.valor}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="conclusion">
+            ${conclusion}
+          </div>
+          <form id="mail-form" style="display:flex;align-items:center;gap:10px;margin-top:32px;flex-wrap:wrap;">
+            <input id="mail-to" type="email" placeholder="Escribí tu e-mail" style="flex:1 1 220px;font-size:1.08em;padding:10px 14px;border-radius:7px;border:1.5px solid #cfe5d3;outline:none;background:#f8f9fa;" required>
+            <button id="send-mail-btn" title="Enviar por email" type="submit" style="background:linear-gradient(90deg,#69b47c 60%,#ffb3b3 100%);border:none;border-radius:50%;padding:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px #e1b7b73d;" disabled>
+              ${sendArrowSVG}
+            </button>
+          </form>
+          <div id="mail-confirm" style="margin-top:10px;color:#3080b4;font-size:1.06em;font-weight:500;"></div>
+        `;
+        cont.style.display = 'block';
+        cont.scrollIntoView({behavior: 'smooth'});
+
+        // --- Validación e interacción del mail ---
+        const mailInput = document.getElementById('mail-to');
+        const sendBtn = document.getElementById('send-mail-btn');
+        const mailForm = document.getElementById('mail-form');
+        const mailConfirm = document.getElementById('mail-confirm');
+
+        function updateBtnState() {
+          if (validarEmail(mailInput.value)) {
+            sendBtn.disabled = false;
+            mailInput.style.borderColor = "#69b47c";
+          } else {
+            sendBtn.disabled = true;
+            mailInput.style.borderColor = "#fbb3b3";
+          }
+          mailConfirm.textContent = "";
+        }
+        mailInput.addEventListener('input', updateBtnState);
+
+        mailForm.onsubmit = function(ev) {
+          ev.preventDefault();
+          const to = mailInput.value.trim();
+          if (!validarEmail(to)) {
+            mailInput.style.borderColor = "#fbb3b3";
+            mailConfirm.textContent = "Por favor, escribí un e-mail válido.";
+            return;
+          }
+          const subject = encodeURIComponent("Mi lectura personalizada de suculentas");
+          const textRespuestas = respuestas.map(r => `${r.titulo}: ${r.valor}`).join("\n");
+          const conclusionText = conclusion.replace(/<[^>]+>/g, '').replace(/\s+\n/g, '\n');
+          const body = encodeURIComponent(
+            `¡Hola!\n\nEste es el resultado de mi lectura personalizada:\n\n` +
+            `${info.nombre}\n${info.descripcion}\n\n` +
+            `Mis respuestas:\n${textRespuestas}\n\n` +
+            `Lectura:\n${conclusionText}\n\n¡Gracias!`
+          );
+          window.location.href = `mailto:${encodeURIComponent(to)}?subject=${subject}&body=${body}`;
+          mailConfirm.textContent = "Se está abriendo tu aplicación de correo para enviar el resultado.";
+        };
+
+        sendBtn.disabled = true;
+      });
+    });
+
+    // ------ VOICE INTERVIEW
+    let recognition;
+    let listening = false;
+    let voiceIndex = 0;
+    const preguntas = [
+      "¿Cuál es tu signo zodiacal?",
+      "¿Qué aspecto de tu vida te gustaría potenciar o equilibrar?",
+      "¿Con qué elemento te identificas más?",
+      "¿Qué buscas en una planta?",
+      "¿Qué color te atrae más?",
+      "¿Prefieres trabajar tu energía a nivel físico, mental, emocional, espiritual o todos?"
+    ];
+    let respuestasVoice = [];
+
+    function setVoiceStatus(txt) {
+      document.getElementById('voice-status').innerHTML = txt;
+    }
+
+    function startVoiceInterview() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        setVoiceStatus("Tu navegador no soporta reconocimiento de voz.");
+        return;
+      }
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.lang = 'es-ES';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      respuestasVoice = [];
+      voiceIndex = 0;
+      listening = true;
+      setVoiceStatus("Comenzando entrevista...");
+
+      function askNext() {
+        if (voiceIndex >= preguntas.length) {
+          setVoiceStatus("Entrevista finalizada. Completando el formulario...");
+          fillVoiceAnswers();
+          listening = false;
+          document.getElementById('voice-btn-text').innerText = "Empezar entrevista hablada";
+          return;
+        }
+        setVoiceStatus(`<b>${preguntas[voiceIndex]}</b> <br><span style="color:#555">Hablá después del beep...</span>`);
+        speakText(preguntas[voiceIndex], () => {
+          recognition.start();
+        });
+      }
+
+      recognition.onresult = function(event) {
+        const respuesta = event.results[0][0].transcript.trim();
+        respuestasVoice.push(respuesta);
+        voiceIndex++;
+        setTimeout(askNext, 650);
+      };
+      recognition.onerror = function() {
+        setVoiceStatus("No se pudo entender. Intentá de nuevo.");
+        listening = false;
+        document.getElementById('voice-btn-text').innerText = "Empezar entrevista hablada";
+      };
+      askNext();
+    }
+
+    function speakText(text, cb) {
+      if (window.speechSynthesis) {
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'es-ES';
+        utter.rate = 1.01;
+        utter.onend = () => setTimeout(cb, 390);
+        utter.onstart = () => setTimeout(() => window.speechSynthesis.pause(), 10);
+        setTimeout(() => {window.speechSynthesis.speak(utter);}, 120);
+      } else cb();
+    }
+
+    function fillVoiceAnswers() {
+      function matchOption(sel, val) {
+        const options = Array.from(sel.options).map(o => o.textContent.trim().toLowerCase());
+        val = val.toLowerCase();
+        for (let i = 1; i < options.length; ++i) {
+          if (val.includes(options[i])) return sel.options[i].value;
+        }
+        return "";
+      }
+      const form = document.getElementById('form-suculenta');
+      form['signo'].value = matchOption(form['signo'], respuestasVoice[0] || "");
+      form['vida'].value = matchOption(form['vida'], respuestasVoice[1] || "");
+      form['elemento'].value = matchOption(form['elemento'], respuestasVoice[2] || "");
+      form['buscas'].value = matchOption(form['buscas'], respuestasVoice[3] || "");
+      form['color'].value = matchOption(form['color'], respuestasVoice[4] || "");
+      form['nivel'].value = matchOption(form['nivel'], respuestasVoice[5] || "");
+      setVoiceStatus("¡Tus respuestas están cargadas! Ahora podés ver tu lectura personalizada.");
+      form.scrollIntoView({behavior:'smooth'});
+    }
+
+    document.getElementById('voice-btn').onclick = function() {
+      if (listening) {
+        recognition.stop();
+        setVoiceStatus("Entrevista detenida.");
+        listening = false;
+        document.getElementById('voice-btn-text').innerText = "Empezar entrevista hablada";
+      } else {
+        document.getElementById('voice-btn-text').innerText = "Entrevistando... (parar)";
+        startVoiceInterview();
+      }
+    };
+
+    fillPlantSelectAndGallery();
+  </script>
+</body>
+</html>
