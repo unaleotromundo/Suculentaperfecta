@@ -7,16 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --main-bg: #f6f6f6;
-      --main-color: #212529;
+      --main-bg: #f5f8f6;
+      --main-color: #222a26;
       --accent: #8bc34a;
-      --soft: #fafbfb;
+      --soft: #fff;
       --border: #e2e6ea;
-      --shadow: 0 2px 16px 0 #0002;
-      --radius: 18px;
-      --transition: 0.16s cubic-bezier(.4,0,.2,1);
-      --side-photo-width: 180px;
-      --side-photo-gap: 32px;
+      --shadow: 0 2px 24px 0 #9bcfbc24;
+      --radius: 22px;
+      --transition: 0.18s cubic-bezier(.4,0,.2,1);
     }
     html, body {
       background: var(--main-bg);
@@ -27,74 +25,134 @@
     }
     h1 {
       text-align: center;
-      font-size: 2.6em;
-      font-weight: 700;
-      margin: 32px 0 16px 0;
+      font-size: 2.5em;
+      font-weight: 800;
       letter-spacing: 0.5px;
+      margin-top: 38px;
+      margin-bottom: 10px;
     }
-    .main-layout {
+    .main-flex {
       display: flex;
       justify-content: center;
       align-items: stretch;
-      gap: var(--side-photo-gap);
-      max-width: 900px;
+      gap: 0;
+      max-width: 950px;
       margin: 0 auto 40px auto;
-      padding: 0 8px;
+      padding: 0 3vw;
+      position: relative;
     }
-    .side-photo {
-      width: var(--side-photo-width);
-      min-width: 120px;
-      max-width: 220px;
+    .side-gallery {
+      width: 180px;
+      min-width: 100px;
+      background: none;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      gap: 10px;
+      margin: 0;
       user-select: none;
       position: relative;
       z-index: 1;
+      animation: floatin 0.8s;
     }
-    .side-photo img {
+    @keyframes floatin {
+      from { opacity:0; transform:translateY(20px);}
+      to { opacity:1; transform:translateY(0);}
+    }
+    .side-gallery .plant-img-frame {
       width: 100%;
-      max-width: 200px;
       aspect-ratio: 1/1;
+      margin-bottom: 0;
+      position: relative;
+      overflow: visible;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .side-gallery img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 22px;
-      box-shadow: 0 4px 28px #8bc34a25, 0 1px 7px #bbb2;
+      border-radius: 20px;
+      box-shadow: 0 7px 30px #8bc34a26, 0 2px 9px #bbb2;
       background: #e0e9e2;
-      margin-bottom: 16px;
-      transition: box-shadow 0.19s, transform 0.16s;
+      filter: grayscale(0.1);
+      transition: box-shadow .23s, filter .21s, transform .16s;
+      will-change: filter, box-shadow, transform;
     }
-    .side-photo .plant-name {
-      font-weight: 700;
-      color: #3b6e38;
-      font-size: 1.08em;
+    .side-gallery img.active {
+      filter: brightness(1.13) saturate(1.13) drop-shadow(0 0 16px #8bc34a22) grayscale(0);
+      box-shadow: 0 18px 70px #8bc34a3d, 0 1px 11px #7bc34a36;
+      transform: scale(1.055);
+      z-index: 2;
+    }
+    .plant-caption {
+      margin-top: 11px;
+      margin-bottom: 6px;
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 13px #7bc34a14;
+      border-radius: 11px;
+      padding: 8px 8px 7px 8px;
       text-align: center;
-      margin-bottom: 0;
-      margin-top: 10px;
+      min-width: 0;
+      max-width: 175px;
+      font-size: 1.02em;
+      color: #426c38;
+      font-weight: 600;
+      opacity: 0.88;
+      user-select: text;
+      pointer-events:none;
+      transition: opacity .13s;
     }
-    .side-photo .plant-energy {
+    .plant-caption .e {
       color: #7bbf2c;
-      font-size: 0.97em;
-      font-weight: 500;
-      text-align: center;
-      margin-bottom: 8px;
+      font-size: 0.93em;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      opacity: 0.82;
     }
-    .side-photo .plant-short {
-      font-size: 0.97em;
-      color: #6e7d67;
-      text-align: center;
-      opacity: 0.77;
-      max-width: 170px;
-      margin-bottom: 0;
+    .plant-caption .s {
+      color: #596f5a;
+      font-size: 0.96em;
+      font-weight: 400;
+      opacity: 0.70;
+      display: block;
+      margin-top: 1px;
+    }
+    .side-gallery .arrow-btn {
+      background: #fff;
+      border: 1.5px solid #d4efb2;
+      color: #8bc34a;
+      border-radius: 50%;
+      font-size: 1.65em;
+      width: 38px;
+      height: 38px;
+      margin: 11px 0 0 0;
+      box-shadow: 0 2px 12px #8bc34a19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .14s, color .13s, border .13s;
+      outline: none;
+      z-index: 2;
+      user-select: none;
+    }
+    .side-gallery .arrow-btn:hover,
+    .side-gallery .arrow-btn:focus-visible {
+      background: #8bc34a;
+      color: #fff;
+      border-color: #8bc34a;
     }
     main.form-zone {
       background: var(--soft);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 30px 26px 18px 26px;
+      padding: 34px 32px 18px 32px;
       border: 1.5px solid var(--border);
       margin-bottom: 38px;
-      transition: box-shadow var(--transition);
       min-width: 320px;
       max-width: 440px;
       width: 100%;
@@ -102,9 +160,10 @@
       flex-direction: column;
       align-items: stretch;
       z-index: 2;
+      animation: floatin .3s;
     }
     main.form-zone:hover {
-      box-shadow: 0 8px 32px #98d5872f;
+      box-shadow: 0 12px 42px #98d58732;
     }
     form label {
       display: block;
@@ -212,58 +271,45 @@
       box-shadow: 0 1px 9px #e2e2c241;
       max-width: 650px;
     }
+    /* Responsive */
     @media (max-width: 900px) {
-      .main-layout {
+      .main-flex {
         flex-direction: column;
         align-items: center;
         max-width: 99vw;
-        gap: 0;
       }
-      .side-photo {
+      .side-gallery {
         flex-direction: row;
         width: 100%;
-        max-width: 98vw;
+        max-width: 99vw;
         justify-content: center;
-        margin: 0 0 12px 0;
-        gap: 14px;
+        margin: 0 0 17px 0;
+        gap: 18px;
       }
-      .side-photo img {
-        max-width: 110px;
-        margin-bottom: 0;
-        margin-right: 14px;
+      .side-gallery .plant-img-frame {
+        width: 95px;
+        min-width: 75px;
+        max-width: 130px;
       }
-      .side-photo .plant-name,
-      .side-photo .plant-energy,
-      .side-photo .plant-short {
-        text-align: left;
-        margin-bottom: 2px;
-      }
+      .plant-caption { max-width: 110px; font-size: 0.97em;}
     }
     @media (max-width: 600px) {
-      .main-layout {
-        padding: 0;
+      h1 { font-size: 1.45em; }
+      .main-flex { padding: 0; }
+      main.form-zone { padding: 10px 2vw 8px 2vw; min-width: 0; max-width: 99vw; }
+      .side-gallery .plant-img-frame {
+        width: 71px;
+        min-width: 59px;
       }
-      main.form-zone {
-        padding: 12px 2vw 10px 2vw;
-        min-width: 0;
-        max-width: 99vw;
-      }
-      .side-photo img {
-        max-width: 77px;
-        border-radius: 1em;
-      }
-      .side-photo {
-        max-width: 99vw;
-        margin-bottom: 11px;
-      }
+      .plant-caption { padding: 6px 4px 5px 7px; font-size: 0.93em;}
     }
   </style>
 </head>
 <body>
   <h1>¿Qué suculenta necesitas?</h1>
-  <div class="main-layout">
-    <div class="side-photo" id="side-photo-left">
-      <!-- Foto y descripción izquierda dinámica -->
+  <div class="main-flex">
+    <div class="side-gallery" id="side-gallery-left">
+      <!-- Fotos izquierda -->
     </div>
     <main class="form-zone">
       <form id="form-suculenta" autocomplete="off">
@@ -343,8 +389,8 @@
         </button>
       </form>
     </main>
-    <div class="side-photo" id="side-photo-right">
-      <!-- Foto y descripción derecha dinámica -->
+    <div class="side-gallery" id="side-gallery-right">
+      <!-- Fotos derecha -->
     </div>
   </div>
   <div id="resultado"></div>
@@ -364,8 +410,8 @@
       { key:"opuntia_monacantha_fma_variegada_monstruosa", nombre: "Opuntia monacantha fma. variegada monstruosa", archivo: "monstruosa", energia: "originalidad, fortaleza, sanación", short: "Opuntia de formas únicas, variegada y llamativa." }
     ];
 
-    // Imagen aleatoria para cada lado, cambiando cada X segundos
-    let idxLeft = 0, idxRight = 1;
+    // Side galleries: 3 plantas por cada lado, rotación independiente
+    let leftIndexes = [0, 1, 2], rightIndexes = [3, 4, 5];
     function buscarImagen(nombreBase, callback) {
       const exts = ["jpg", "jpeg", "png"];
       let idx = 0;
@@ -382,28 +428,69 @@
       }
       probar();
     }
-    function renderSidePhoto(containerId, idx) {
+    function renderGallery(containerId, indexes, isLeft) {
       const cont = document.getElementById(containerId);
-      const val = plantas[idx];
-      buscarImagen(val.archivo, (ruta) => {
-        cont.innerHTML = `
-          <img src="${ruta}" alt="${val.nombre}">
-          <div class="plant-name">${val.nombre}</div>
-          <div class="plant-energy">${val.energia}</div>
-          <div class="plant-short">${val.short}</div>
-        `;
+      cont.innerHTML = '';
+      indexes.forEach((idx, n) => {
+        const val = plantas[idx];
+        const frame = document.createElement('div');
+        frame.className = 'plant-img-frame';
+        buscarImagen(val.archivo, (ruta) => {
+          frame.innerHTML = `
+            <img src="${ruta}" alt="${val.nombre}" class="${n === 1 ? 'active' : ''}">
+          `;
+        });
+        // Caption solo para la central
+        if (n === 1) {
+          const caption = document.createElement('div');
+          caption.className = 'plant-caption';
+          caption.innerHTML = `<span>${val.nombre}</span>
+            <span class="e">${val.energia}</span>
+            <span class="s">${val.short}</span>`;
+          frame.appendChild(caption);
+        }
+        cont.appendChild(frame);
       });
+      // Flechas
+      const arrowPrev = document.createElement('button');
+      arrowPrev.className = 'arrow-btn';
+      arrowPrev.innerHTML = isLeft ? '⟲' : '⟳';
+      arrowPrev.title = isLeft ? "Rotar arriba" : "Rotar abajo";
+      arrowPrev.onclick = function(){
+        rotateGallery(isLeft, -1);
+      };
+      cont.appendChild(arrowPrev);
+
+      const arrowNext = document.createElement('button');
+      arrowNext.className = 'arrow-btn';
+      arrowNext.innerHTML = isLeft ? '⟳' : '⟲';
+      arrowNext.title = isLeft ? "Rotar abajo" : "Rotar arriba";
+      arrowNext.onclick = function(){
+        rotateGallery(isLeft, 1);
+      };
+      cont.appendChild(arrowNext);
     }
-    function changePhotos() {
-      idxLeft = (idxLeft + 1) % plantas.length;
-      idxRight = (idxRight + 1) % plantas.length;
-      renderSidePhoto("side-photo-left", idxLeft);
-      renderSidePhoto("side-photo-right", idxRight);
+    function rotateGallery(isLeft, dir) {
+      if (isLeft) {
+        if (dir > 0) leftIndexes = leftIndexes.slice(1).concat([getNextFreeIndex(leftIndexes)]);
+        else leftIndexes = [getNextFreeIndex(leftIndexes)].concat(leftIndexes.slice(0,2));
+        renderGallery('side-gallery-left', leftIndexes, true);
+      } else {
+        if (dir > 0) rightIndexes = rightIndexes.slice(1).concat([getNextFreeIndex(rightIndexes)]);
+        else rightIndexes = [getNextFreeIndex(rightIndexes)].concat(rightIndexes.slice(0,2));
+        renderGallery('side-gallery-right', rightIndexes, false);
+      }
+    }
+    function getNextFreeIndex(current) {
+      // get a plant index not shown currently in either gallery, or just next in list
+      let used = [...leftIndexes, ...rightIndexes];
+      for (let i=0;i<plantas.length;i++) if (!used.includes(i)) return i;
+      // fallback: rotate through all indexes
+      return (Math.max(...current)+1)%plantas.length;
     }
     // Inicialización
-    renderSidePhoto("side-photo-left", idxLeft);
-    renderSidePhoto("side-photo-right", idxRight);
-    setInterval(changePhotos, 4000);
+    renderGallery('side-gallery-left', leftIndexes, true);
+    renderGallery('side-gallery-right', rightIndexes, false);
 
     // -------- FORMULARIO PERSONALIZADO --------
     const signosElementos = {
