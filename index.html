@@ -25,11 +25,11 @@
     }
     h1 {
       text-align: center;
-      font-size: 2.5em;
+      font-size: 2.2em;
       font-weight: 800;
       letter-spacing: 0.5px;
-      margin-top: 38px;
-      margin-bottom: 10px;
+      margin-top: 28px;
+      margin-bottom: 7px;
     }
     .main-flex {
       display: flex;
@@ -42,8 +42,8 @@
       position: relative;
     }
     .side-gallery {
-      width: 180px;
-      min-width: 100px;
+      width: 170px;
+      min-width: 95px;
       background: none;
       display: flex;
       flex-direction: column;
@@ -150,10 +150,10 @@
       background: var(--soft);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 34px 32px 18px 32px;
+      padding: 28px 15px 18px 15px;
       border: 1.5px solid var(--border);
       margin-bottom: 38px;
-      min-width: 320px;
+      min-width: 240px;
       max-width: 440px;
       width: 100%;
       display: flex;
@@ -167,15 +167,15 @@
     }
     form label {
       display: block;
-      margin: 23px 0 6px 0;
+      margin: 16px 0 5px 0;
       font-weight: 600;
-      font-size: 1.08em;
+      font-size: 1em;
     }
     form select,
     form button {
       width: 100%;
-      font-size: 1.07em;
-      padding: 13px 11px;
+      font-size: 1em;
+      padding: 11px 9px;
       border-radius: 10px;
       border: 1.5px solid var(--border);
       margin-bottom: 0;
@@ -188,7 +188,7 @@
       outline: none;
     }
     form button {
-      margin-top: 22px;
+      margin-top: 18px;
       background: linear-gradient(90deg, #8bc34a 60%, #d4fc79 100%);
       color: #233;
       font-weight: 800;
@@ -199,6 +199,8 @@
       text-transform: uppercase;
       border-bottom: 3px solid #6ea03c;
       transition: transform 0.09s, background var(--transition);
+      font-size: 1.06em;
+      border-radius: 10px;
     }
     form button:hover, form button:focus {
       background: linear-gradient(90deg, #b7e46a 10%, #8bc34a 95%);
@@ -206,8 +208,8 @@
       border-bottom: 3px solid #b7e46a;
     }
     #resultado {
-      margin: 45px auto 40px auto;
-      max-width: 700px;
+      margin: 35px auto 30px auto;
+      max-width: 98vw;
       border-radius: var(--radius);
       box-shadow: 0 6px 35px #8bc34a12;
       padding: 0;
@@ -219,13 +221,13 @@
     }
     #resultado .big-img-plant {
       display: block;
-      margin: 0 auto 24px auto;
-      max-width: 410px;
-      max-height: 330px;
+      margin: 0 auto 17px auto;
+      max-width: 90vw;
+      max-height: 230px;
       width: 99vw;
       height: auto;
       box-shadow: 0 4px 38px #b7d6bc3c;
-      border-radius: 25px;
+      border-radius: 20px;
       background: #e0e9e2;
       transition: box-shadow var(--transition), transform var(--transition);
       object-fit: cover;
@@ -238,21 +240,21 @@
       text-align: center;
       color: #8bc34a;
       font-weight: 800;
-      font-size: 2em;
+      font-size: 1.18em;
       margin-top: 0;
       letter-spacing: 0.2px;
-      margin-bottom: 0.9em;
+      margin-bottom: 0.7em;
     }
     .respuestas {
       margin: 0 auto; max-width: 440px; text-align: center;
-      font-size: 1.09em;
+      font-size: 0.99em;
       color: #42743d;
     }
     .respuestas ul {
       padding-left: 0;
       margin: 0;
       list-style: none;
-      line-height: 1.6;
+      line-height: 1.5;
     }
     .respuestas li {
       margin-bottom: 4px;
@@ -261,127 +263,97 @@
       padding-bottom: 4px;
     }
     .conclusion {
-      margin: 38px auto 0 auto;
-      padding: 30px 12vw 30px 12vw;
+      margin: 22px auto 0 auto;
+      padding: 18px 4vw 16px 4vw;
       background: #fff;
-      border-radius: 25px;
-      font-size: 1.13em;
+      border-radius: 17px;
+      font-size: 1.01em;
       color: #594e2d;
-      line-height: 1.62;
+      line-height: 1.55;
       box-shadow: 0 1px 9px #e2e2c241;
-      max-width: 650px;
+      max-width: 97vw;
     }
-    /* Responsive */
+    /* Mobile, mejor estructura */
     @media (max-width: 900px) {
       .main-flex {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
         max-width: 99vw;
+        gap: 0;
+        padding: 0 0;
       }
       .side-gallery {
         flex-direction: row;
         width: 100%;
         max-width: 99vw;
         justify-content: center;
-        margin: 0 0 17px 0;
-        gap: 18px;
+        margin: 0 0 13px 0;
+        gap: 12px;
       }
       .side-gallery .plant-img-frame {
-        width: 95px;
-        min-width: 75px;
-        max-width: 130px;
+        width: 80px;
+        min-width: 54px;
+        margin-bottom: 0;
+        margin-left: 0;
       }
-      .plant-caption { max-width: 110px; font-size: 0.97em;}
+      .plant-caption { max-width: 102px; font-size: 0.93em; }
+      main.form-zone { margin: 0 0 22px 0; padding: 13px 2vw 7px 2vw; min-width: 0; max-width: 99vw;}
     }
     @media (max-width: 600px) {
-      h1 { font-size: 1.45em; }
+      h1 { font-size: 1.18em; margin-top: 16px;}
       .main-flex { padding: 0; }
-      main.form-zone { padding: 10px 2vw 8px 2vw; min-width: 0; max-width: 99vw; }
-      .side-gallery .plant-img-frame {
-        width: 71px;
-        min-width: 59px;
-      }
-      .plant-caption { padding: 6px 4px 5px 7px; font-size: 0.93em;}
+      .side-gallery .plant-img-frame { width: 55px; min-width: 40px;}
+      .plant-caption { padding: 2px 2px 2px 2px; font-size: 0.85em;}
+      #resultado .big-img-plant { border-radius: 13px; }
+      .conclusion { padding: 8px 2vw 8px 2vw; font-size: 0.97em;}
     }
   </style>
 </head>
 <body>
   <h1>¿Qué suculenta necesitas?</h1>
   <div class="main-flex">
-    <div class="side-gallery" id="side-gallery-left">
-      <!-- Fotos izquierda -->
-    </div>
+    <div class="side-gallery" id="side-gallery-left"></div>
     <main class="form-zone">
       <form id="form-suculenta" autocomplete="off">
         <label for="signo">¿Cuál es tu signo zodiacal?</label>
         <select id="signo" name="signo" required>
           <option value="">Selecciona tu signo</option>
-          <option>Aries</option>
-          <option>Tauro</option>
-          <option>Géminis</option>
-          <option>Cáncer</option>
-          <option>Leo</option>
-          <option>Virgo</option>
-          <option>Libra</option>
-          <option>Escorpio</option>
-          <option>Sagitario</option>
-          <option>Capricornio</option>
-          <option>Acuario</option>
-          <option>Piscis</option>
+          <option>Aries</option><option>Tauro</option><option>Géminis</option>
+          <option>Cáncer</option><option>Leo</option><option>Virgo</option>
+          <option>Libra</option><option>Escorpio</option><option>Sagitario</option>
+          <option>Capricornio</option><option>Acuario</option><option>Piscis</option>
         </select>
         <label for="vida">¿Qué aspecto de tu vida te gustaría potenciar o equilibrar?</label>
         <select id="vida" name="vida" required>
           <option value="">Selecciona una opción</option>
-          <option>Amor</option>
-          <option>Salud</option>
-          <option>Dinero</option>
-          <option>Familia</option>
-          <option>Trabajo</option>
-          <option>Creatividad</option>
-          <option>Equilibrio emocional</option>
-          <option>Crecimiento espiritual</option>
-          <option>Otro</option>
+          <option>Amor</option><option>Salud</option><option>Dinero</option>
+          <option>Familia</option><option>Trabajo</option><option>Creatividad</option>
+          <option>Equilibrio emocional</option><option>Crecimiento espiritual</option><option>Otro</option>
         </select>
         <label for="elemento">¿Con qué elemento te identificas más?</label>
         <select id="elemento" name="elemento" required>
           <option value="">Selecciona un elemento</option>
-          <option>Fuego</option>
-          <option>Tierra</option>
-          <option>Aire</option>
-          <option>Agua</option>
+          <option>Fuego</option><option>Tierra</option><option>Aire</option><option>Agua</option>
         </select>
         <label for="buscas">¿Qué buscas en una planta?</label>
         <select id="buscas" name="buscas" required>
           <option value="">Selecciona una opción</option>
-          <option>Facilidad de cuidado</option>
-          <option>Floración</option>
-          <option>Color</option>
-          <option>Resistencia</option>
-          <option>Forma</option>
-          <option>Propiedades energéticas</option>
-          <option>Otra</option>
+          <option>Facilidad de cuidado</option><option>Floración</option>
+          <option>Color</option><option>Resistencia</option>
+          <option>Forma</option><option>Propiedades energéticas</option><option>Otra</option>
         </select>
         <label for="color">¿Qué color te atrae más?</label>
         <select id="color" name="color" required>
           <option value="">Selecciona un color</option>
-          <option>Verde</option>
-          <option>Rojo</option>
-          <option>Naranja</option>
-          <option>Amarillo</option>
-          <option>Rosa</option>
-          <option>Violeta</option>
-          <option>Azul</option>
-          <option>Blanco</option>
-          <option>Gris</option>
-          <option>Multicolor</option>
+          <option>Verde</option><option>Rojo</option><option>Naranja</option>
+          <option>Amarillo</option><option>Rosa</option><option>Violeta</option>
+          <option>Azul</option><option>Blanco</option><option>Gris</option><option>Multicolor</option>
         </select>
         <label for="nivel">¿Prefieres trabajar tu energía a nivel…?</label>
         <select id="nivel" name="nivel" required>
           <option value="">Selecciona un nivel</option>
-          <option>Físico</option>
-          <option>Mental</option>
-          <option>Emocional</option>
-          <option>Espiritual</option>
+          <option>Físico</option><option>Mental</option>
+          <option>Emocional</option><option>Espiritual</option>
           <option>Todos</option>
         </select>
         <button type="submit" id="submit-btn">
@@ -389,9 +361,7 @@
         </button>
       </form>
     </main>
-    <div class="side-gallery" id="side-gallery-right">
-      <!-- Fotos derecha -->
-    </div>
+    <div class="side-gallery" id="side-gallery-right"></div>
   </div>
   <div id="resultado"></div>
   <script>
@@ -409,7 +379,6 @@
       { key:"crassula_expansa_subsp_fragilis", nombre: "Crassula expansa subsp. fragilis", archivo: "crassulafragilis", energia: "delicadeza, adaptación, flexibilidad", short: "Tallos finos y flexibles, hojas pequeñas y delicadas." },
       { key:"opuntia_monacantha_fma_variegada_monstruosa", nombre: "Opuntia monacantha fma. variegada monstruosa", archivo: "monstruosa", energia: "originalidad, fortaleza, sanación", short: "Opuntia de formas únicas, variegada y llamativa." }
     ];
-
     // Side galleries: 3 plantas por cada lado, rotación independiente
     let leftIndexes = [0, 1, 2], rightIndexes = [3, 4, 5];
     function buscarImagen(nombreBase, callback) {
