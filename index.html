@@ -767,5 +767,115 @@
       });
     });
   </script>
+<!-- Botón flotante psicodélico -->
+<style>
+  #suculenta-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #b2ff59, #69f0ae, #00e5ff, #d500f9);
+    background-size: 300% 300%;
+    color: white;
+    font-weight: bold;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: gradientFlow 5s ease infinite;
+    transition: transform 0.3s ease;
+  }
+
+  #suculenta-btn:hover {
+    transform: scale(1.1);
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .psychedelic {
+    animation: trip 2s ease-in-out;
+    filter: hue-rotate(360deg) saturate(3);
+  }
+
+  @keyframes trip {
+    0% { transform: scale(1); filter: hue-rotate(0deg); }
+    50% { transform: scale(1.2) rotate(15deg); filter: hue-rotate(180deg); }
+    100% { transform: scale(1); filter: hue-rotate(360deg); }
+  }
+
+  #particle-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+  }
+</style>
+
+<canvas id="particle-canvas"></canvas>
+<button id="suculenta-btn">🌵 Visita la colección</button>
+
+<audio id="trip-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_6f742b5a9f.mp3" preload="auto"></audio>
+
+<script>
+  const btn = document.getElementById('suculenta-btn');
+  const body = document.body;
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  const audio = document.getElementById('trip-sound');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function createParticles() {
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 6 + 2,
+        dx: (Math.random() - 0.5) * 2,
+        dy: (Math.random() - 0.5) * 2,
+        color: `hsl(${Math.random() * 360}, 100%, 60%)`
+      });
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+    }
+    requestAnimationFrame(animateParticles);
+  }
+
+  btn.addEventListener('click', () => {
+    body.classList.add('psychedelic');
+    audio.play();
+    btn.style.display = 'none';
+    createParticles();
+    animateParticles();
+
+    setTimeout(() => {
+      window.location.href = "https://unaleotromundo.github.io/otromundo/";
+    }, 3500);
+  });
+</script>
 </body>
 </html>
