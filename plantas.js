@@ -11,7 +11,7 @@ const plantas = {
     archivo: "graptosedum",
     energia: "transformación, flexibilidad, belleza interior y exterior"
   },
-  ojo_de_dragon: {
+  huernia_ojo_de_dragon: {
     nombre: "Ojo de Dragón",
     descripcion: "...",
     archivo: "huerniaojodedragon",
@@ -59,7 +59,7 @@ const plantas = {
     archivo: "crassulafragilis",
     energia: "delicadeza, adaptación, flexibilidad"
   },
-  opuntia_monacantha_fma_variegada_monstruosa: {
+  opuntia_monacantha_monstruosa: {
     nombre: "Opuntia monacantha fma. variegada monstruosa",
     descripcion: "...",
     archivo: "monstruosa",
