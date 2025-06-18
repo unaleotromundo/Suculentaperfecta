@@ -11,8 +11,8 @@ const plantas = {
     archivo: "graptosedum",
     energia: "transformación, flexibilidad, belleza interior y exterior"
   },
-  huernia_ojo_de_dragon: {
-    nombre: "Ojo de Dragón",
+  huernia: {
+    nombre: "Huernia",
     descripcion: "...",
     archivo: "huerniaojodedragon",
     energia: "protección, intuición, percepción"
