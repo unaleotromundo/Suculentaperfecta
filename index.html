@@ -1,881 +1,190 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>¿Qué suculenta necesitas?</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --main-bg: #f3efe7;
-      --main-color: #201b11;
-      --accent: #b9da7b;
-      --accent-dark: #495e22;
-      --wood: #b18957;
-      --leaf: #5c7e18;
-      --rune: #2b230d;
-      --soft: #f7f3e7;
-      --border: #b6ac81;
-      --shadow: 0 6px 28px 0 #9bcfbc22, 0 1px 6px #c8b79544;
-      --radius: 25px;
-      --glow: 0 0 15px #e7e9b6, 0 0 32px #f4ffd7;
-      --transition: 0.18s cubic-bezier(.4,0,.2,1);
-      --moss: #b5bb81;
-      --rune-font: 'Marcellus', serif;
-      --hobbit-shadow: 0 4px 30px #bdbb6e3a, 0 0 0 #fff0;
-      --bg-wood: linear-gradient(180deg, #ede5c9 0 60%, #ecf2d6 100%);
-      --bg-paper: linear-gradient(120deg, #f7f3e7 80%, #f1fbe7 100%);
-      --bg-panel: linear-gradient(130deg, #f7f4df 85%, #e4e8c1 100%);
-      --bg-soft: #f7f4e7;
-      --bg-card: #fffef5;
-    }
-    html, body {
-      background: radial-gradient(ellipse 180% 100% at 50% 5%, #fffbe4 50%, var(--main-bg) 100%);
-      color: var(--main-color);
-      font-family: var(--rune-font), 'Inter', 'Segoe UI', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    body {
-      min-height: 100vh;
-      background-image:
-        url('https://www.transparenttextures.com/patterns/wood-pattern.png'),
-        var(--bg-wood);
-      background-blend-mode: lighten;
-      width: 100vw;
-    }
-    h1 {
-      text-align: center;
-      font-size: 2.4em;
-      font-family: var(--rune-font), serif;
-      font-weight: 800;
-      margin-top: 34px;
-      margin-bottom: 12px;
-      letter-spacing: 0.06em;
-      color: var(--rune);
-      text-shadow: 0 0 11px #f7ffe3, 0 2px 5px #b3b05a2a;
-      filter: drop-shadow(0 2px 0 #f6f5e0);
-      background: var(--bg-paper);
-      border-radius: 20px;
-      max-width: 780px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 18px 10px 8px 10px;
-      box-shadow: 0 4px 22px #b9da7b22;
-    }
-    .main-flex {
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      min-height: 0;
-      gap: 0;
-      max-width: 1320px;
-      margin: 0 auto 40px auto;
-      padding: 0 3vw;
-      position: relative;
-      background: var(--bg-wood);
-      border-radius: 34px;
-      box-shadow: 0 10px 60px #efecc633, 0 1px 8px #d1d7a5;
-    }
-    main.form-zone {
-      background: var(--bg-paper);
-      border-radius: 38px;
-      box-shadow: 0 10px 60px #efecc633, 0 1px 8px #d1d7a5;
-      padding: 37px 24px 25px 24px;
-      border: 2.7px solid #e2d6b1;
-      margin-bottom: 38px;
-      min-width: 220px;
-      max-width: 520px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: stretch;
-      z-index: 2;
-      animation: floatin .3s;
-      margin-left: 20px;
-      margin-right: 20px;
-      box-shadow: var(--shadow), var(--glow);
-      position: relative;
-      height: auto;
-      min-height: 0;
-      flex: 1 1 auto;
-    }
-    main.form-zone:before {
-      content: '';
-      position: absolute;
-      left: 4%; right: 4%; top: 6px; bottom: 6px;
-      border-radius: 40px;
-      box-shadow: 0 0 40px 12px #f5ffde88, 0 0 120px 40px #efffb83c;
-      z-index: 0;
-      pointer-events: none;
-      opacity: .9;
-    }
-    main.form-zone:hover {
-      box-shadow: 0 18px 65px #e9efb245, 0 1px 13px #b3b05a33, var(--glow);
-    }
-    .side-gallery {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: stretch;
-      height: auto;
-      min-height: 0;
-      flex: 1 0 auto;
-      width: 190px;
-      min-width: 85px;
-      background: var(--bg-panel);
-      border-radius: 32px;
-      border: 2.8px solid #dfd9bb;
-      box-shadow: var(--hobbit-shadow);
-      gap: 11px;
-      margin: 0;
-      user-select: none;
-      position: relative;
-      z-index: 1;
-      padding: 24px 6px 17px 6px;
-      margin-top: 25px;
-      margin-bottom: 25px;
-    }
-    .side-gallery-frames {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      height: 100%;
-      min-height: 0;
-      flex: 1 1 100%;
-      width: 100%;
-      gap: 12px;
-    }
-    .side-gallery .plant-img-frame {
-      flex: 1 1 0;
-      min-height: 0;
-      width: 94%;
-      aspect-ratio: 1/1;
-      margin-bottom: 0;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      border-radius: 19px;
-      box-shadow: 0 3px 18px #9cbf6820;
-      background: var(--bg-soft);
-      border: 1.2px solid #c5bc8e;
-      cursor: pointer;
-      transition: box-shadow .23s;
-      overflow: hidden;
-    }
-    .side-gallery img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 17px;
-      box-shadow: 0 1.5px 8px #8bc34a1e, 0 1px 5px #bbb2;
-      filter: grayscale(0.04) brightness(1.07) contrast(1.03) blur(0.3px);
-      background: #eaf6de;
-      transition: box-shadow .23s, filter .21s, transform .16s;
-      will-change: filter, box-shadow, transform;
-    }
-    .plant-caption {
-      margin-top: 9px;
-      margin-bottom: 5px;
-      background: var(--bg-card);
-      box-shadow: 0 2px 13px #eaeaa814;
-      border-radius: 9px;
-      padding: 7px 7px 6px 7px;
-      text-align: center;
-      min-width: 0;
-      max-width: 160px;
-      font-size: 1.03em;
-      color: #2a2f16;
-      font-family: var(--rune-font), serif;
-      font-weight: 500;
-      opacity: 0.96;
-      user-select: text;
-      pointer-events:none;
-      border: 1.2px solid #ded9b6;
-      letter-spacing: 0.03em;
-    }
-    .plant-caption .e {
-      color: var(--leaf);
-      font-size: 0.97em;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      opacity: 0.92;
-    }
-    .plant-caption .s {
-      color: #3a2b18;
-      font-size: 0.95em;
-      font-weight: 400;
-      opacity: 0.82;
-      display: block;
-      margin-top: 1px;
-      font-family: 'Inter', sans-serif;
-    }
-    form label {
-      display: block;
-      margin: 18px 0 6px 0;
-      font-weight: 700;
-      font-size: 1.12em;
-      font-family: var(--rune-font), serif;
-      color: #21210d;
-      text-shadow: 0 1px 0 #fff, 0 0 3px #f8ffd0;
-      letter-spacing: 0.04em;
-      background: var(--bg-card);
-      border-radius: 7px;
-      padding: 5px 7px 2px 7px;
-      margin-left: -7px;
-      margin-right: -7px;
-      margin-top: 18px;
-    }
-    form select,
-    form button {
-      width: 100%;
-      font-size: 1em;
-      padding: 12px 10px;
-      border-radius: 12px;
-      border: 1.5px solid #b6ac81;
-      margin-bottom: 0;
-      background: var(--bg-soft);
-      transition: border-color var(--transition), box-shadow var(--transition);
-      font-family: 'Inter',sans-serif;
-      color: #191406;
-    }
-    form select:focus {
-      border-color: var(--accent-dark);
-      box-shadow: 0 2px 8px #b9da7b55;
-      outline: none;
-      background: #f4ffd6;
-    }
-    form button {
-      margin-top: 24px;
-      background: linear-gradient(90deg, #b9da7b 70%, #fffbe4 100%);
-      color: #1b2b0c;
-      font-weight: 800;
-      letter-spacing: 0.09em;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 2px 12px #b9da7b3a, 0 0 0 #fff;
-      text-transform: uppercase;
-      border-bottom: 3px solid var(--accent-dark);
-      transition: transform 0.09s, background var(--transition);
-      font-family: var(--rune-font), serif;
-      font-size: 1.05em;
-      border-radius: 14px;
-      text-shadow: 0 0 6px #f6ffd6cc;
-      background: var(--bg-panel);
-    }
-    form button:hover, form button:focus {
-      background: linear-gradient(90deg, #d9fa8a 10%, #b9da7b 95%);
-      transform: scale(1.027);
-      border-bottom: 3px solid #b7e46a;
-      box-shadow: 0 8px 28px #b9da7b36;
-    }
-    #resultado {
-      margin: 38px auto 25px auto;
-      max-width: 98vw;
-      border-radius: var(--radius);
-      box-shadow: 0 6px 35px #f6ffd633, 0 1px 8px #e6eac2;
-      padding: 0;
-      display: none;
-      border: none;
-      background: var(--bg-wood);
-      z-index: 3;
-      position: relative;
-    }
-    #resultado .big-img-plant {
-      display: block;
-      margin: 0 auto 21px auto;
-      width: 340px;
-      max-width: 92vw;
-      max-height: 340px;
-      aspect-ratio: 1/1;
-      box-shadow: 0 6px 42px #e6f9b883, 0 1px 8px #b9da7b44, 0 0 30px #fffbe4a5;
-      border-radius: 30px;
-      background: #e0e9e2;
-      transition: box-shadow var(--transition), transform var(--transition);
-      object-fit: cover;
-      border: 3px solid #e8e3bb;
-      filter: drop-shadow(0 0 22px #fffbe4cc) brightness(1.07) contrast(1.09);
-      outline: 6px solid #fafae0;
-      outline-offset: -8px;
-      animation: resultado-pop 0.45s cubic-bezier(.27,1.2,.44,1);
-    }
-    @keyframes resultado-pop {
-      0% { opacity:0; transform: scale(0.7);}
-      70% { opacity:1; transform: scale(1.08);}
-      100% { opacity:1; transform: scale(1);}
-    }
-    #resultado .big-img-plant:hover {
-      box-shadow: 0 10px 60px #e6f9b8a3, 0 4px 20px #e6eac2;
-      transform: scale(1.04) rotate(-2.5deg);
-      outline-color: #f6ffd6;
-    }
-    #resultado h2 {
-      text-align: center;
-      color: var(--accent-dark);
-      font-family: var(--rune-font), serif;
-      font-weight: 800;
-      font-size: 1.34em;
-      margin-top: 0;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.9em;
-      text-shadow: 0 0 8px #f6ffd6cc;
-      background: var(--bg-paper);
-      border-radius: 20px;
-      max-width: 440px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 14px 10px 6px 10px;
-      box-shadow: 0 4px 22px #b9da7b22;
-    }
-    .respuestas {
-      margin: 0 auto; max-width: 440px; text-align: center;
-      font-size: 1.01em;
-      color: #23220d;
-      font-family: 'Inter',sans-serif;
-      background: var(--bg-card);
-      border-radius: 17px;
-      padding: 12px 7px 7px 7px;
-      box-shadow: 0 1px 6px #b9da7b22;
-    }
-    .respuestas ul {
-      padding-left: 0;
-      margin: 0;
-      list-style: none;
-      line-height: 1.5;
-    }
-    .respuestas li {
-      margin-bottom: 4px;
-      font-size: 1em;
-      border-bottom: 1px dotted #e3e3e3;
-      padding-bottom: 4px;
-    }
-    .conclusion {
-      margin: 22px auto 0 auto;
-      padding: 22px 4vw 22px 4vw;
-      background: var(--bg-card);
-      border-radius: 17px;
-      font-size: 1.13em;
-      color: #231f15;
-      line-height: 1.65;
-      box-shadow: 0 1px 9px #e0eac2;
-      max-width: 97vw;
-      font-family: var(--rune-font), serif;
-      letter-spacing: 0.01em;
-    }
-    .descripcion-planta {
-      margin: 23px auto 25px auto;
-      padding: 17px 4vw 15px 4vw;
-      background: #f3f3e6;
-      border-radius: 15px;
-      font-size: 1.04em;
-      color: #322e1c;
-      line-height: 1.6;
-      box-shadow: 0 1px 8px #e7eac2;
-      max-width: 90vw;
-      font-family: 'Inter', serif;
-      letter-spacing: 0.01em;
-    }
-    @media (max-width: 1200px) {
-      .main-flex { max-width: 99vw;}
-      .side-gallery { width: 100px;}
-      main.form-zone { min-width: 0; }
-    }
-    @media (max-width: 900px) {
-      .main-flex {
-        flex-direction: column;
-        align-items: center;
-        max-width: 99vw;
-        gap: 0;
-        padding: 0 0;
-      }
-      .side-gallery {
-        flex-direction: row;
-        width: 100vw;
-        max-width: 99vw;
-        justify-content: center;
-        margin: 0 0 13px 0;
-        gap: 8px;
-        padding: 10px 0 8px 0;
-        border-radius: 20px;
-        height: auto;
-        max-height: none;
-      }
-      .side-gallery-frames {
-        flex-direction: row;
-        gap: 6px;
-        width: 100vw;
-        justify-content: center;
-        height: auto;
-      }
-      .side-gallery .plant-img-frame {
-        width: 44px;
-        min-width: 30px;
-        border-radius: 9px;
-      }
-      .plant-caption { max-width: 100px; font-size: 0.83em; }
-      main.form-zone { margin: 0 0 22px 0; padding: 13px 2vw 7px 2vw; min-width: 0; max-width: 99vw;}
-    }
-    @media (max-width: 600px) {
-      #resultado .big-img-plant {
-        width: 96vw;
-        max-width: 99vw;
-        max-height: 210px;
-        border-radius: 13px;
-        outline-width: 3px;
-        margin-bottom: 13px;
-      }
-      .conclusion, .descripcion-planta { padding: 6px 2vw 6px 2vw; font-size: 1em;}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Suculentas</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>¿Qué suculenta necesitas?</h1>
-  <div class="main-flex">
-    <div class="side-gallery" id="side-gallery-left"></div>
-    <main class="form-zone">
-      <form id="form-suculenta" autocomplete="off">
-        <label for="signo">¿Cuál es tu signo zodiacal?</label>
-        <select id="signo" name="signo" required>
-          <option value="">Selecciona tu signo</option>
-          <option>Aries</option><option>Tauro</option><option>Géminis</option>
-          <option>Cáncer</option><option>Leo</option><option>Virgo</option>
-          <option>Libra</option><option>Escorpio</option><option>Sagitario</option>
-          <option>Capricornio</option><option>Acuario</option><option>Piscis</option>
-        </select>
-        <label for="vida">¿Qué aspecto de tu vida te gustaría potenciar o equilibrar?</label>
-        <select id="vida" name="vida" required>
-          <option value="">Selecciona una opción</option>
-          <option>Amor</option><option>Salud</option><option>Dinero</option>
-          <option>Familia</option><option>Trabajo</option><option>Creatividad</option>
-          <option>Equilibrio emocional</option><option>Crecimiento espiritual</option><option>Otro</option>
-        </select>
-        <label for="elemento">¿Con qué elemento te identificas más?</label>
-        <select id="elemento" name="elemento" required>
-          <option value="">Selecciona un elemento</option>
-          <option>Fuego</option><option>Tierra</option><option>Aire</option><option>Agua</option>
-        </select>
-        <label for="buscas">¿Qué buscas en una planta?</label>
-        <select id="buscas" name="buscas" required>
-          <option value="">Selecciona una opción</option>
-          <option>Facilidad de cuidado</option><option>Floración</option>
-          <option>Color</option><option>Resistencia</option>
-          <option>Forma</option><option>Propiedades energéticas</option><option>Otra</option>
-        </select>
-        <label for="color">¿Qué color te atrae más?</label>
-        <select id="color" name="color" required>
-          <option value="">Selecciona un color</option>
-          <option>Verde</option><option>Rojo</option><option>Naranja</option>
-          <option>Amarillo</option><option>Rosa</option><option>Violeta</option>
-          <option>Azul</option><option>Blanco</option><option>Gris</option><option>Multicolor</option>
-        </select>
-        <label for="nivel">¿Prefieres trabajar tu energía a nivel…?</label>
-        <select id="nivel" name="nivel" required>
-          <option value="">Selecciona un nivel</option>
-          <option>Físico</option><option>Mental</option>
-          <option>Emocional</option><option>Espiritual</option>
-          <option>Todos</option>
-        </select>
-        <button type="submit" id="submit-btn">
-          🌿✨ Ver una suculenta para vos ✨🌱
-        </button>
-      </form>
-    </main>
-    <div class="side-gallery" id="side-gallery-right"></div>
-  </div>
-  <div id="resultado"></div>
-  <script>
-    const perfilesZodiaco = {
-      Aries:    { rasgos: ['impulso', 'entusiasmo', 'iniciativa', 'valentía'],     plantaClave: 'graptosedum_california_sunset' },
-      Tauro:    { rasgos: ['paciencia', 'constancia', 'sensualidad', 'practicidad'], plantaClave: 'madreperla' },
-      Géminis:  { rasgos: ['curiosidad', 'adaptabilidad', 'comunicación', 'juego'], plantaClave: 'cactus_coral' },
-      Cáncer:   { rasgos: ['protección', 'sensibilidad', 'hogar', 'intuición'],      plantaClave: 'ojo_de_dragon' },
-      Leo:      { rasgos: ['autoafirmación', 'alegría', 'liderazgo', 'creatividad'], plantaClave: 'el_cactus_cacahuete' },
-      Virgo:    { rasgos: ['análisis', 'detalle', 'servicio', 'modestia'],           plantaClave: 'echeveria_elegans' },
-      Libra:    { rasgos: ['búsqueda de armonía', 'belleza', 'diplomacia'],          plantaClave: 'callisia_navicularis' },
-      Escorpio: { rasgos: ['intensidad', 'transformación', 'pasión', 'misterio'],    plantaClave: 'opuntia_monacantha_fma_variegada_monstruosa' },
-      Sagitario:{ rasgos: ['optimismo', 'exploración', 'alegría', 'expansión'],      plantaClave: 'mammillaria_prolifera' },
-      Capricornio:{ rasgos: ['perseverancia', 'disciplina', 'ambición', 'reserva'],  plantaClave: 'mammillaria_vetula' },
-      Acuario:  { rasgos: ['originalidad', 'independencia', 'visión', 'progreso'],   plantaClave: 'crassula_expansa_subsp_fragilis' },
-      Piscis:   { rasgos: ['empatía', 'sutileza', 'espiritualidad', 'soñar'],        plantaClave: 'madreperla' }
-    };
-    const plantas = [
-      { key:"el_cactus_cacahuete", nombre: "El Cactus Cacahuete", archivo: "cactus-cacahuete", energia: "alegría, renovación, vitalidad", short: "Cactus amigable, tallos finos y flores naranjas intensas.", descripcion: "Cactus pequeño de tallos verdes cilíndricos y flores naranja brillante. Se asocia con la alegría sencilla, la renovación y la protección sin agresión." },
-      { key:"graptosedum_california_sunset", nombre: "Graptosedum 'California Sunset'", archivo: "graptosedum", energia: "transformación, flexibilidad, belleza interior y exterior", short: "Rosetas que cambian de verde a naranja y rosa con el sol.", descripcion: "Suculenta de rosetas con hojas que pasan del verde al naranja y rosa según la luz. Invita a aceptar el cambio y la belleza de los ciclos." },
-      { key:"ojo_de_dragon", nombre: "Ojo de Dragón", archivo: "huerniaojodedragon", energia: "protección, intuición, percepción", short: "Flores exóticas y forma compacta; ideal para colección.", descripcion: "Planta compacta con flores rojizas y pardas, de formas inusuales. Simboliza la protección, la intuición y la percepción fina de lo invisible." },
-      { key:"callisia_navicularis", nombre: "Callisia Navicularis", archivo: "callisianavicularis", energia: "resiliencia, protección, equilibrio", short: "Hojas gruesas, verdes y púrpuras, de crecimiento rastrero.", descripcion: "Rastrera, con hojas carnosas verdes y púrpuras. Representa la resiliencia y el equilibrio entre luz y sombra." },
-      { key:"cactus_coral", nombre: "\"Cactus Coral\" o \"Cactus Arroz\"", archivo: "cactuscoral-2", energia: "adaptabilidad, conexión, ligereza", short: "Tallos en forma de coral, colgante y muy resistente.", descripcion: "Cactus colgante, tallos ramificados verdes y puntas rojizas. Su energía es la adaptabilidad y la comunicación entre generaciones." },
-      { key:"madreperla", nombre: "Madreperla", archivo: "madreperla-2", energia: "belleza interior, protección, suavidad", short: "Hojas gris-verde con tonos rosados, ideal para macetas colgantes.", descripcion: "Roseta con hojas grises, verdes y toques rosados. Es talismán de belleza interior y protección suave." },
-      { key:"mammillaria_vetula", nombre: "Mammillaria vetula", archivo: "mammillariavetula", energia: "protección, suavidad, crecimiento interior", short: "Cactus pequeño, peludo y fácil de cuidar.", descripcion: "Cactus pequeño, cubierto de pelitos blancos y flores blanquecinas. Aporta protección y crecimiento desde la discreción." },
-      { key:"mammillaria_prolifera", nombre: "Mammillaria prolifera", archivo: "mammillariaprolifera", energia: "abundancia, multiplicidad, comunidad", short: "Forma grupos de bolitas; florece y crece en racimos.", descripcion: "Cactus de bolitas, florece en amarillo pálido. Simboliza la multiplicidad y la alegría compartida." },
-      { key:"echeveria_elegans", nombre: "Echeveria elegans", archivo: "echeveria-elegans-2", energia: "armonía, belleza, perfección", short: "Roseta simétrica azulada, resistente y ornamental.", descripcion: "Roseta simétrica, azulada y gris. Emblema de armonía y perfección natural." },
-      { key:"crassula_expansa_subsp_fragilis", nombre: "Crassula expansa subsp. fragilis", archivo: "crassulafragilis", energia: "delicadeza, adaptación, flexibilidad", short: "Tallos finos y flexibles, hojas pequeñas y delicadas.", descripcion: "Suculenta de tallos finos, hojas verdes pequeñas. Símbolo de flexibilidad y delicadeza como fuerza." },
-      { key:"opuntia_monacantha_fma_variegada_monstruosa", nombre: "Opuntia monacantha fma. variegada monstruosa", archivo: "monstruosa", energia: "originalidad, fortaleza, sanación", short: "Opuntia de formas únicas, variegada y llamativa.", descripcion: "Opuntia de formas únicas, manchas amarillas y verdes. Talismán de originalidad y sanación." }
-    ];
-    const plantaColores = {
-      "el_cactus_cacahuete": ["verde", "naranja"],
-      "graptosedum_california_sunset": ["naranja", "rosa", "rojo"],
-      "ojo_de_dragon": ["rojo", "marrón", "verde"],
-      "callisia_navicularis": ["verde", "púrpura"],
-      "cactus_coral": ["verde", "rojo"],
-      "madreperla": ["gris", "rosa", "verde"],
-      "mammillaria_vetula": ["blanco", "verde"],
-      "mammillaria_prolifera": ["amarillo", "verde", "blanco"],
-      "echeveria_elegans": ["azul", "verde", "gris"],
-      "crassula_expansa_subsp_fragilis": ["verde"],
-      "opuntia_monacantha_fma_variegada_monstruosa": ["amarillo", "verde", "blanco"]
-    };
-    const descripcionesLargas = {
-      "el_cactus_cacahuete": `Esta suculenta encarna la alegría sencilla y la capacidad de florecer en los momentos menos esperados. Sus pequeñas flores naranjas y su forma amigable nos recuerdan que la renovación es posible incluso en los escenarios más secos. Protege con su presencia, pero sin ser agresiva: es el tipo de guardiana que atrae energía fresca y optimismo cada día. Si alguna vez sentís el ánimo bajo, mirála para recordar que la resiliencia también puede ser dulce y luminosa.<br><br>
-      <b>Simbolismo:</b> Alegría, vitalidad, renovación, protección amable.<br>
-      <b>Tip de uso:</b> Cerca de una ventana, atrae oportunidades y energiza la rutina.`,
-      "graptosedum_california_sunset": `El graptosedum es un símbolo vivo de los cambios de ciclo, como un atardecer que muta de naranja a rosa y luego se apaga con suavidad. Su belleza está en no temerle a la transformación: invita a dejar atrás lo viejo, abrazar lo nuevo y entender que los colores de la vida cambian según la luz con la que los mires. Tenerla cerca ayuda a transitar mudanzas, cierres y nuevos comienzos con gracia y luz.<br><br>
-      <b>Simbolismo:</b> Transformación, flexibilidad, aceptación del cambio.<br>
-      <b>Tip de uso:</b> Ideal para rituales de cierre de ciclos y nuevos comienzos, especialmente al atardecer.`,
-      "ojo_de_dragon": `El Ojo de Dragón es la suculenta de los portales y las noches misteriosas. Sus flores exóticas parecen mirarte, como si custodiaran secretos antiguos. Si sentís que te rodean energías densas, ella es aliada: protege, limpia y despierta intuiciones dormidas. Es ideal para quienes buscan percibir más allá de lo visible y animarse a transitar sus propios laberintos internos.<br><br>
-      <b>Simbolismo:</b> Protección, intuición, percepción sutil.<br>
-      <b>Tip de uso:</b> Su presencia ahuyenta envidias y fortalece los sueños lúcidos.`,
-      "callisia_navicularis": `La callisia es la mensajera de la resiliencia y el abrazo entre lo claro y lo oscuro. Sus hojas púrpuras y verdes representan la danza entre la luz y la sombra, y su crecimiento rastrero enseña que avanzar a veces es adaptarse y tomar caminos alternativos. Es una gran compañera para quienes están en procesos de cambio o necesitan anclar el equilibrio en su vida cotidiana.<br><br>
-      <b>Simbolismo:</b> Resiliencia, adaptación, equilibrio.<br>
-      <b>Tip de uso:</b> Ayuda a mantener la calma en cambios de estación o mudanzas.`,
-      "cactus_coral": `Esta suculenta trae la energía del agua y los corales antiguos, recordando que la vida es conexión y adaptabilidad. Sus tallos colgantes unen generaciones, historias y personas, y su vibración ayuda a fluir, comunicarse y soltar cargas innecesarias. Cuando la vida se pone rígida, mirá sus formas para recordar la sabiduría de cambiar y moverse con ligereza.<br><br>
-      <b>Simbolismo:</b> Adaptabilidad, comunicación, ligereza.<br>
-      <b>Tip de uso:</b> Favorece la comunicación familiar y el fluir de ideas nuevas.`,
-      "madreperla": `La madreperla te invita a mirar hacia adentro: su belleza suave y sus tonos perlados son como un espejo que revela tesoros internos. Es una planta que suaviza el ambiente, brinda protección dulce y potencia la autocompasión. Si estás en un camino de autoaceptación o necesitas sentirte más contenida, su presencia será bálsamo y amuleto.<br><br>
-      <b>Simbolismo:</b> Belleza interior, protección suave, autocompasión.<br>
-      <b>Tip de uso:</b> Potencia la autocompasión y es excelente para meditaciones al despertar.`,
-      "mammillaria_vetula": `Esta pequeña cactus, cubierta de suaves pelitos, enseña el valor del crecimiento silencioso y la protección que no necesita mostrar espinas. Es discreta pero poderosa: ideal para quienes desean avanzar sin llamar la atención, cultivando proyectos y sueños a su propio ritmo. Su energía favorece la intimidad, la reflexión y el florecimiento interior.<br><br>
-      <b>Simbolismo:</b> Protección discreta, crecimiento interior, reflexión.<br>
-      <b>Tip de uso:</b> Protege los secretos y promueve el crecimiento de proyectos personales.`,
-      "mammillaria_prolifera": `La mammillaria prolifera es símbolo de abundancia y comunidad. Sus bolitas se multiplican y florecen en racimos, trayendo alegría compartida. Tenerla cerca es una invitación a abrirte a la prosperidad y a celebrar los pequeños logros junto a quienes querés. Es la suculenta de los lazos, la generosidad y la risa multiplicada.<br><br>
-      <b>Simbolismo:</b> Abundancia, prosperidad, alegría compartida.<br>
-      <b>Tip de uso:</b> Multiplica la prosperidad material y espiritual cuando se regala.`,
-      "echeveria_elegans": `Pocas suculentas transmiten tanta armonía como la echeveria elegans. Sus hojas perfectamente dispuestas en roseta son un mantra visual para la paz y el equilibrio. Es ideal para espacios donde busques inspiración, estudio o trabajo creativo, y su presencia ayuda a ordenar pensamientos y emociones como si cada hoja fuera un pétalo de calma.<br><br>
-      <b>Simbolismo:</b> Armonía, orden, inspiración.<br>
-      <b>Tip de uso:</b> Excelente para espacios de estudio o trabajo, equilibra la energía mental.`,
-      "crassula_expansa_subsp_fragilis": `La crassula fragilis es la maestra de la flexibilidad. Sus tallos finos y hojas delicadas demuestran que la fortaleza no siempre es rígida: la adaptabilidad también es poder. Si estás en un momento de creatividad o necesitas encontrar soluciones diferentes, su energía abre caminos, sugiere alternativas y protege de las rigideces del pensamiento.<br><br>
-      <b>Simbolismo:</b> Flexibilidad, creatividad, adaptabilidad.<br>
-      <b>Tip de uso:</b> Favorece la inspiración artística y la resolución pacífica de conflictos.`,
-      "opuntia_monacantha_fma_variegada_monstruosa": `La opuntia monstruosa celebra la rareza, la diferencia y la capacidad de sanar heridas profundas. Sus formas únicas y sus manchas coloridas son bandera de orgullo para quienes se sienten fuera de lo común. Es una planta sanadora, que ayuda a integrar las cicatrices y a mostrar que lo inusual también es bello y digno de asombro.<br><br>
-      <b>Simbolismo:</b> Originalidad, sanación, orgullo de lo diferente.<br>
-      <b>Tip de uso:</b> Ayuda a sanar heridas antiguas y a abrazar la propia rareza.`
-    };
-    function buscarImagen(nombreBase, callback) {
-      const exts = ["jpg", "jpeg", "png"];
-      let idx = 0;
-      function probar() {
-        if (idx >= exts.length) {
-          callback("fotos/no-disponible.png");
-          return;
-        }
-        const ruta = `fotos/${nombreBase}.${exts[idx]}`;
-        const img = new window.Image();
-        img.onload = () => callback(ruta);
-        img.onerror = () => { idx++; probar(); };
-        img.src = ruta;
-      }
-      probar();
-    }
-    function renderGallery(containerId, indexes) {
-      const cont = document.getElementById(containerId);
-      cont.innerHTML = '';
-      const framesWrap = document.createElement('div');
-      framesWrap.className = 'side-gallery-frames';
-      indexes.forEach((idx) => {
-        const val = plantas[idx];
-        const frame = document.createElement('div');
-        frame.className = 'plant-img-frame';
-        buscarImagen(val.archivo, (ruta) => {
-          frame.innerHTML = `<img src="${ruta}" alt="${val.nombre}" class="active">`;
-        });
-        const caption = document.createElement('div');
-        caption.className = 'plant-caption';
-        caption.innerHTML = `<span>${val.nombre}</span>
-          <span class="e">${val.energia}</span>
-          <span class="s">${val.short}</span>`;
-        frame.appendChild(caption);
-        framesWrap.appendChild(frame);
-      });
-      cont.appendChild(framesWrap);
-    }
-    const leftIndexes = [0,1,2,3,4,5];
-    const rightIndexes = [6,7,8,9,10,0];
-    renderGallery('side-gallery-left', leftIndexes);
-    renderGallery('side-gallery-right', rightIndexes);
-    function elegirPlantaPorPerfil(respuestas) {
-      const signo = respuestas.find(r=>r.titulo.includes('zodiacal'))?.valor;
-      const vida = respuestas.find(r=>r.titulo.includes('vida'))?.valor?.toLowerCase();
-      const color = respuestas.find(r=>r.titulo.toLowerCase().includes('color'))?.valor?.toLowerCase();
-      const nivel = respuestas.find(r=>r.titulo.includes('nivel'))?.valor?.toLowerCase();
-      const elemento = respuestas.find(r=>r.titulo.includes('elemento'))?.valor?.toLowerCase();
-      const buscas = respuestas.find(r=>r.titulo.includes('buscas'))?.valor?.toLowerCase();
-      const perfil = perfilesZodiaco[signo];
-      if (perfil) {
-        const plantaClave = plantas.find(p=>p.key===perfil.plantaClave);
-        if (plantaClave && plantaColores[plantaClave.key].includes(color)) {
-          return plantaClave;
-        }
-      }
-      const candidatasColor = plantas.filter(p=>plantaColores[p.key].includes(color));
-      if (candidatasColor.length) {
-        for (const p of candidatasColor) {
-          if (
-            (vida && p.energia.includes(vida)) ||
-            (buscas && p.energia.includes(buscas)) ||
-            (nivel && p.energia.includes(nivel))
-          ) return p;
-        }
-        return candidatasColor[Math.floor(Math.random()*candidatasColor.length)];
-      }
-      if (elemento==="agua" || nivel==="emocional") {
-        return plantas.find(p=>p.key==="madreperla");
-      }
-      if (vida==="trabajo"||vida==="dinero"||vida==="familia") {
-        return plantas.find(p=>p.key==="mammillaria_prolifera");
-      }
-      if (vida==="creatividad"||buscas==="floración"||buscas==="color") {
-        return plantas.find(p=>p.key==="el_cactus_cacahuete");
-      }
-      if (perfil) return plantas.find(p=>p.key===perfil.plantaClave);
-      return plantas[Math.floor(Math.random()*plantas.length)];
-    }
-    function conclusionIntuitiva(respuestas, info) {
-      const signo = respuestas.find(r=>r.titulo.includes('zodiacal'))?.valor;
-      const vida = respuestas.find(r=>r.titulo.includes('vida'))?.valor;
-      const color = respuestas.find(r=>r.titulo.toLowerCase().includes('color'))?.valor;
-      const nivel = respuestas.find(r=>r.titulo.includes('nivel'))?.valor;
-      const elemento = respuestas.find(r=>r.titulo.includes('elemento'))?.valor;
-      const buscas = respuestas.find(r=>r.titulo.includes('buscas'))?.valor;
-      let arquetipo = "";
-      if (signo && perfilesZodiaco[signo]) {
-        arquetipo = perfilesZodiaco[signo].rasgos[Math.floor(Math.random()*perfilesZodiaco[signo].rasgos.length)];
-      }
-      let mensaje = `
-        <b>Tu energía actual pide:</b> <span style="color:#5c7e18;">${arquetipo ? arquetipo : 'equilibrio'}</span>.<br>
-        <b>Esta planta resuena especialmente con quienes, como vos, buscan trabajar sobre</b> <span style="color:#b18957;">${vida ? vida.toLowerCase() : "su crecimiento"}</span>
-        <b>desde el nivel</b> <span style="color:#495e22">${nivel ? nivel.toLowerCase() : 'integral'}</span>.
-        <br><br>
-        <b>El color que elegiste</b> (<span style="color:#a96f1b;">${color}</span>) <b>refleja una vibración interna que se potencia con la presencia de esta especie.</b>
-        <br><br>
-        <b>La forma y energía de esta planta te ayudarán a expresar tu potencial, recordar tu valor y avanzar hacia lo que buscás, acompañándote con su presencia silenciosa y constante.</b>
-        <br><br>
-        <i>En la tradición de los sabios antiguos, cada planta era elegida como un espejo del alma: la tuya aporta justo el matiz y la fuerza que tu momento necesita.</i>
-      `;
-      return mensaje;
-    }
-    function validarEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-    }
-    document.getElementById('form-suculenta').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const fd = new FormData(this);
-      const respuestas = [
-        { titulo: "Signo zodiacal", valor: fd.get('signo') },
-        { titulo: "Aspecto de la vida que te gustaría potenciar o equilibrar", valor: fd.get('vida') },
-        { titulo: "Elemento con el que te identificás más", valor: fd.get('elemento') },
-        { titulo: "¿Qué buscas en una planta?", valor: fd.get('buscas') },
-        { titulo: "Color que más te atrae", valor: fd.get('color') },
-        { titulo: "Nivel para trabajar tu energía", valor: fd.get('nivel') }
-      ];
-      const plantaElegida = elegirPlantaPorPerfil(respuestas);
-      buscarImagen(plantaElegida.archivo, (rutaImagen) => {
-        const cont = document.getElementById('resultado');
-        const conclusion = conclusionIntuitiva(respuestas, plantaElegida);
-        const descripcionLarga = descripcionesLargas[plantaElegida.key] || plantaElegida.descripcion;
-        cont.innerHTML = `
-          <h2>${plantaElegida.nombre}</h2>
-          <img src="${rutaImagen}" alt="${plantaElegida.nombre}" class="big-img-plant">
-          <div class="respuestas">
-            <h3>Tus respuestas:</h3>
-            <ul>
-              ${respuestas.map(r => `<li><b>${r.titulo}:</b> ${r.valor}</li>`).join('')}
-            </ul>
-          </div>
-          <div class="descripcion-planta">${descripcionLarga}</div>
-          <div class="conclusion">
-            ${conclusion}
-          </div>
-          <form id="mail-form" style="display:flex;align-items:center;gap:10px;margin-top:32px;flex-wrap:wrap;">
-            <input id="mail-to" type="email" name="email" placeholder="Escribí tu e-mail" style="flex:1 1 220px;font-size:1.08em;padding:10px 14px;border-radius:7px;border:1.5px solid #cfe5d3;outline:none;background:#f8f9fa;" required>
-            <button id="send-mail-btn" title="Enviar por email" type="submit" style="background:linear-gradient(90deg,#69b47c 60%,#ffb3b3 100%);border:none;border-radius:50%;padding:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px #e1b7b73d;" disabled>
-              <svg viewBox="0 0 24 24" width="26" height="26" style="vertical-align:middle;" fill="#fff"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            </button>
-          </form>
-          <div id="mail-confirm" style="margin-top:10px;color:#3080b4;font-size:1.06em;font-weight:500;"></div>
-        `;
-        cont.style.display = 'block';
-        cont.scrollIntoView({behavior: 'smooth'});
-        const mailInput = document.getElementById('mail-to');
-        const sendBtn = document.getElementById('send-mail-btn');
-        const mailForm = document.getElementById('mail-form');
-        const mailConfirm = document.getElementById('mail-confirm');
-        function updateBtnState() {
-          if (validarEmail(mailInput.value)) {
-            sendBtn.disabled = false;
-            mailInput.style.borderColor = "#69b47c";
-          } else {
-            sendBtn.disabled = true;
-            mailInput.style.borderColor = "#fbb3b3";
-          }
-          mailConfirm.textContent = "";
-        }
-        mailInput.addEventListener('input', updateBtnState);
-        mailForm.onsubmit = function(ev) {
-          ev.preventDefault();
-          const to = mailInput.value.trim();
-          if (!validarEmail(to)) {
-            mailInput.style.borderColor = "#fbb3b3";
-            mailConfirm.textContent = "Por favor, escribí un e-mail válido.";
-            return;
-          }
-          sendBtn.disabled = true;
-          mailConfirm.style.color = "#3080b4";
-          mailConfirm.textContent = "Enviando...";
-          const textRespuestas = respuestas.map(r => `${r.titulo}: ${r.valor}`).join("\n");
-          const conclusionText = conclusion.replace(/<[^>]+>/g, '').replace(/\s+\n/g, '\n');
-          const mensaje =
-            `Resultado de mi lectura personalizada:\n\n` +
-            `Planta sugerida: ${plantaElegida.nombre}\n${plantaElegida.short}\n\n` +
-            `Mis respuestas:\n${textRespuestas}\n\n` +
-            `Descripción:\n${(descripcionLarga||"").replace(/<[^>]+>/g,"")}\n\n` +
-            `Lectura:\n${conclusionText}\n\n¡Gracias!`;
-          fetch("https://formspree.io/f/meokgbvo", {
-            method: "POST",
-            headers: { "Accept": "application/json", "Content-Type": "application/json" },
-            body: JSON.stringify({ email: to, message: mensaje })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if(data.ok || data.success || data["next"]){
-              mailConfirm.style.color = "#2e8c57";
-              mailConfirm.textContent = "¡Enviado! Revisá tu correo 😊";
-              mailInput.value = "";
-            } else {
-              mailConfirm.style.color = "#e04b4b";
-              mailConfirm.textContent = "Ocurrió un error. Intentá de nuevo más tarde.";
-            }
-          }).catch(() => {
-            mailConfirm.style.color = "#e04b4b";
-            mailConfirm.textContent = "Ocurrió un error. Intentá de nuevo más tarde.";
-          }).finally(()=>{sendBtn.disabled=false;});
-        };
-        sendBtn.disabled = true;
-      });
-    });
-  </script>
-<!-- Botón flotante psicodélico -->
-<style>
-  #suculenta-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: linear-gradient(45deg, #b2ff59, #69f0ae, #00e5ff, #d500f9);
-    background-size: 300% 300%;
-    color: white;
-    font-weight: bold;
-    padding: 16px 20px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    animation: gradientFlow 5s ease infinite;
-    transition: transform 0.3s ease;
-  }
+    <div class="main-content-wrapper">
+        <div class="slider slider-top">
+            <div class="slider-inner">
+                <img src="fotos/cactus-mani.jpg" alt="Cactus maní" data-large-src="fotos/cactus-mani.jpg">
+                <img src="fotos/graptosedum-california-sunset.jpg" alt="Graptosedum California Sunset" data-large-src="fotos/graptosedum-california-sunset.jpg">
+                <img src="fotos/huernia.jpg" alt="Huernia" data-large-src="fotos/huernia.jpg">
+                <img src="fotos/callisia-navicularis.jpg" alt="Callisia Navicularis" data-large-src="fotos/callisia-navicularis.jpg">
+                <img src="fotos/cactus-coral.jpg" alt="Cactus Coral" data-large-src="fotos/cactus-coral.jpg">
+                <img src="fotos/madreperla.jpg" alt="Madreperla" data-large-src="fotos/madreperla.jpg">
+                <img src="fotos/mammillaria-vetula.jpg" alt="Mammillaria vetula" data-large-src="fotos/mammillaria-vetula.jpg">
+                <img src="fotos/mammillaria-prolifera.jpg" alt="Mammillaria prolifera" data-large-src="fotos/mammillaria-prolifera.jpg">
+                <img src="fotos/echeveria-elegans.jpg" alt="Echeveria elegans" data-large-src="fotos/echeveria-elegans.jpg">
+                <img src="fotos/crassula-fragilis.jpg" alt="Crassula expansa fragilis" data-large-src="fotos/crassula-fragilis.jpg">
+                <img src="fotos/opuntia-monacantha-monstruosa.jpg" alt="Opuntia monacantha monstruosa" data-large-src="fotos/opuntia-monacantha-monstruosa.jpg">
+                <img src="fotos/senecio-articulatus.png" alt="Senecio articulatus" data-large-src="fotos/senecio-articulatus.png">
+                <img src="fotos/sedum-rubrotinctum-jelly-beans.jpg" alt="Sedum rubrotinctum" data-large-src="fotos/sedum-rubrotinctum-jelly-beans.jpg">
+                <img src="fotos/sedum-luteoviride.jpg" alt="Sedum luteoviride" data-large-src="fotos/sedum-luteoviride.jpg">
+                <img src="fotos/sedum-clavatum.jpg" alt="Sedum clavatum" data-large-src="fotos/sedum-clavatum.jpg">
+                <img src="fotos/pachyphytum-compactum.jpg" alt="Pachyphytum compactum" data-large-src="fotos/pachyphytum-compactum.jpg">
+                <img src="fotos/opuntia-microdasys.jpg" alt="Opuntia microdasys" data-large-src="fotos/opuntia-microdasys.jpg">
+                <img src="fotos/haworthia-cuspidata.jpg" alt="Haworthia Cuspidata" data-large-src="fotos/haworthia-cuspidata.jpg">
+                <img src="fotos/gasteria-pillansii.jpg" alt="Gasteria pillansi" data-large-src="fotos/gasteria-pillansii.jpg">
+                <img src="fotos/echeveria-setosa.jpg" alt="Echeveria Setosa" data-large-src="fotos/echeveria-setosa.jpg">
+                <img src="fotos/crassula-pellucida.jpg" alt="Crassula Pellucida" data-large-src="fotos/crassula-pellucida.jpg">
+                <img src="fotos/corpuscularia-lehmannii.jpg" alt="Corpuscularia lehmannii" data-large-src="fotos/corpuscularia-lehmannii.jpg">
+            </div>
+        </div>
 
-  #suculenta-btn:hover {
-    transform: scale(1.1);
-  }
+        <div class="quiz">
+            <h2>Descubre tu Suculenta Ideal</h2>
+            <div class="question">
+                <label for="signo">¿Cuál es tu signo zodiacal?</label>
+                <select id="signo">
+                    <option value="">Selecciona tu signo</option>
+                    <option value="aries">Aries</option>
+                    <option value="tauro">Tauro</option>
+                    <option value="geminis">Géminis</option>
+                    <option value="cancer">Cáncer</option>
+                    <option value="leo">Leo</option>
+                    <option value="virgo">Virgo</option>
+                    <option value="libra">Libra</option>
+                    <option value="escorpio">Escorpio</option>
+                    <option value="sagitario">Sagitario</option>
+                    <option value="capricornio">Capricornio</option>
+                    <option value="acuario">Acuario</option>
+                    <option value="piscis">Piscis</option>
+                </select>
+            </div>
+            <div class="question">
+                <label for="aspecto">¿Qué aspecto de tu vida buscas potenciar?</label>
+                <select id="aspecto">
+                    <option value="">Selecciona un aspecto</option>
+                    <option value="calma">Calma</option>
+                    <option value="crecimiento">Crecimiento</option>
+                    <option value="energia">Energía</option>
+                    <option value="equilibrio">Equilibrio</option>
+                    <option value="frescura">Frescura</option>
+                    <option value="vitalidad">Vitalidad</option>
+                    <option value="transformacion">Transformación</option>
+                </select>
+            </div>
+            <div class="question">
+                <label for="elemento">¿Con qué elemento te identificas más?</label>
+                <select id="elemento">
+                    <option value="">Selecciona un elemento</option>
+                    <option value="fuego">Fuego</option>
+                    <option value="tierra">Tierra</option>
+                    <option value="aire">Aire</option>
+                    <option value="agua">Agua</option>
+                </select>
+            </div>
+            <div class="question">
+                <label for="nivel">¿Qué tipo de energía buscas en tu planta?</label>
+                <select id="nivel">
+                    <option value="">Selecciona un nivel</option>
+                    <option value="fisico">Físico</option>
+                    <option value="emocional">Emocional</option>
+                    <option value="mental">Mental</option>
+                    <option value="espiritual">Espiritual</option>
+                </select>
+            </div>
+            <button onclick="mostrarResultado()">Ver mi Suculenta Ideal</button>
+            <div id="resultado">
+                </div>
+        </div>
 
-  @keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+        <div class="slider slider-bottom">
+            <div class="slider-inner">
+                <img src="fotos/cactus-mani.jpg" alt="Cactus maní" data-large-src="fotos/cactus-mani.jpg">
+                <img src="fotos/graptosedum-california-sunset.jpg" alt="Graptosedum California Sunset" data-large-src="fotos/graptosedum-california-sunset.jpg">
+                <img src="fotos/huernia.jpg" alt="Huernia" data-large-src="fotos/huernia.jpg">
+                <img src="fotos/callisia-navicularis.jpg" alt="Callisia Navicularis" data-large-src="fotos/callisia-navicularis.jpg">
+                <img src="fotos/cactus-coral.jpg" alt="Cactus Coral" data-large-src="fotos/cactus-coral.jpg">
+                <img src="fotos/madreperla.jpg" alt="Madreperla" data-large-src="fotos/madreperla.jpg">
+                <img src="fotos/mammillaria-vetula.jpg" alt="Mammillaria vetula" data-large-src="fotos/mammillaria-vetula.jpg">
+                <img src="fotos/mammillaria-prolifera.jpg" alt="Mammillaria prolifera" data-large-src="fotos/mammillaria-prolifera.jpg">
+                <img src="fotos/echeveria-elegans.jpg" alt="Echeveria elegans" data-large-src="fotos/echeveria-elegans.jpg">
+                <img src="fotos/crassula-fragilis.jpg" alt="Crassula expansa fragilis" data-large-src="fotos/crassula-fragilis.jpg">
+                <img src="fotos/opuntia-monacantha-monstruosa.jpg" alt="Opuntia monacantha monstruosa" data-large-src="fotos/opuntia-monacantha-monstruosa.jpg">
+                <img src="fotos/senecio-articulatus.png" alt="Senecio articulatus" data-large-src="fotos/senecio-articulatus.png">
+                <img src="fotos/sedum-rubrotinctum-jelly-beans.jpg" alt="Sedum rubrotinctum" data-large-src="fotos/sedum-rubrotinctum-jelly-beans.jpg">
+                <img src="fotos/sedum-luteoviride.jpg" alt="Sedum luteoviride" data-large-src="fotos/sedum-luteoviride.jpg">
+                <img src="fotos/sedum-clavatum.jpg" alt="Sedum clavatum" data-large-src="fotos/sedum-clavatum.jpg">
+                <img src="fotos/pachyphytum-compactum.jpg" alt="Pachyphytum compactum" data-large-src="fotos/pachyphytum-compactum.jpg">
+                <img src="fotos/opuntia-microdasys.jpg" alt="Opuntia microdasys" data-large-src="fotos/opuntia-microdasys.jpg">
+                <img src="fotos/haworthia-cuspidata.jpg" alt="Haworthia Cuspidata" data-large-src="fotos/haworthia-cuspidata.jpg">
+                <img src="fotos/gasteria-pillansii.jpg" alt="Gasteria pillansi" data-large-src="fotos/gasteria-pillansii.jpg">
+                <img src="fotos/echeveria-setosa.jpg" alt="Echeveria Setosa" data-large-src="fotos/echeveria-setosa.jpg">
+                <img src="fotos/crassula-pellucida.jpg" alt="Crassula Pellucida" data-large-src="fotos/crassula-pellucida.jpg">
+                <img src="fotos/corpuscularia-lehmannii.jpg" alt="Corpuscularia lehmannii" data-large-src="fotos/corpuscularia-lehmannii.jpg">
 
-  .psychedelic {
-    animation: trip 2s ease-in-out;
-    filter: hue-rotate(360deg) saturate(3);
-  }
+                <img src="fotos/cactus-mani.jpg" alt="Cactus maní" data-large-src="fotos/cactus-mani.jpg">
+                <img src="fotos/graptosedum-california-sunset.jpg" alt="Graptosedum California Sunset" data-large-src="fotos/graptosedum-california-sunset.jpg">
+                <img src="fotos/huernia.jpg" alt="Huernia" data-large-src="fotos/huernia.jpg">
+                <img src="fotos/callisia-navicularis.jpg" alt="Callisia Navicularis" data-large-src="fotos/callisia-navicularis.jpg">
+                <img src="fotos/cactus-coral.jpg" alt="Cactus Coral" data-large-src="fotos/cactus-coral.jpg">
+                <img src="fotos/madreperla.jpg" alt="Madreperla" data-large-src="fotos/madreperla.jpg">
+                <img src="fotos/mammillaria-vetula.jpg" alt="Mammillaria vetula" data-large-src="fotos/mammillaria-vetula.jpg">
+                <img src="fotos/mammillaria-prolifera.jpg" alt="Mammillaria prolifera" data-large-src="fotos/mammillaria-prolifera.jpg">
+                <img src="fotos/echeveria-elegans.jpg" alt="Echeveria elegans" data-large-src="fotos/echeveria-elegans.jpg">
+                <img src="fotos/crassula-fragilis.jpg" alt="Crassula expansa fragilis" data-large-src="fotos/crassula-fragilis.jpg">
+                <img src="fotos/opuntia-monacantha-monstruosa.jpg" alt="Opuntia monacantha monstruosa" data-large-src="fotos/opuntia-monacantha-monstruosa.jpg">
+                <img src="fotos/senecio-articulatus.png" alt="Senecio articulatus" data-large-src="fotos/senecio-articulatus.png">
+                <img src="fotos/sedum-rubrotinctum-jelly-beans.jpg" alt="Sedum rubrotinctum" data-large-src="fotos/sedum-rubrotinctum-jelly-beans.jpg">
+                <img src="fotos/sedum-luteoviride.jpg" alt="Sedum luteoviride" data-large-src="fotos/sedum-luteoviride.jpg">
+                <img src="fotos/sedum-clavatum.jpg" alt="Sedum clavatum" data-large-src="fotos/sedum-clavatum.jpg">
+                <img src="fotos/pachyphytum-compactum.jpg" alt="Pachyphytum compactum" data-large-src="fotos/pachyphytum-compactum.jpg">
+                <img src="fotos/opuntia-microdasys.jpg" alt="Opuntia microdasys" data-large-src="fotos/opuntia-microdasys.jpg">
+                <img src="fotos/haworthia-cuspidata.jpg" alt="Haworthia Cuspidata" data-large-src="fotos/haworthia-cuspidata.jpg">
+                <img src="fotos/gasteria-pillansii.jpg" alt="Gasteria pillansi" data-large-src="fotos/gasteria-pillansii.jpg">
+                <img src="fotos/echeveria-setosa.jpg" alt="Echeveria Setosa" data-large-src="fotos/echeveria-setosa.jpg">
+                <img src="fotos/crassula-pellucida.jpg" alt="Crassula Pellucida" data-large-src="fotos/crassula-pellucida.jpg">
+                <img src="fotos/corpuscularia-lehmannii.jpg" alt="Corpuscularia lehmannii" data-large-src="fotos/corpuscularia-lehmannii.jpg">
 
-  @keyframes trip {
-    0% { transform: scale(1); filter: hue-rotate(0deg); }
-    50% { transform: scale(1.2) rotate(15deg); filter: hue-rotate(180deg); }
-    100% { transform: scale(1); filter: hue-rotate(360deg); }
-  }
+                <img src="fotos/cactus-mani.jpg" alt="Cactus maní" data-large-src="fotos/cactus-mani.jpg">
+                <img src="fotos/graptosedum-california-sunset.jpg" alt="Graptosedum California Sunset" data-large-src="fotos/graptosedum-california-sunset.jpg">
+                <img src="fotos/huernia.jpg" alt="Huernia" data-large-src="fotos/huernia.jpg">
+                <img src="fotos/callisia-navicularis.jpg" alt="Callisia Navicularis" data-large-src="fotos/callisia-navicularis.jpg">
+                <img src="fotos/cactus-coral.jpg" alt="Cactus Coral" data-large-src="fotos/cactus-coral.jpg">
+                <img src="fotos/madreperla.jpg" alt="Madreperla" data-large-src="fotos/madreperla.jpg">
+                <img src="fotos/mammillaria-vetula.jpg" alt="Mammillaria vetula" data-large-src="fotos/mammillaria-vetula.jpg">
+                <img src="fotos/mammillaria-prolifera.jpg" alt="Mammillaria prolifera" data-large-src="fotos/mammillaria-prolifera.jpg">
+                <img src="fotos/echeveria-elegans.jpg" alt="Echeveria elegans" data-large-src="fotos/echeveria-elegans.jpg">
+                <img src="fotos/crassula-fragilis.jpg" alt="Crassula expansa fragilis" data-large-src="fotos/crassula-fragilis.jpg">
+                <img src="fotos/opuntia-monacantha-monstruosa.jpg" alt="Opuntia monacantha monstruosa" data-large-src="fotos/opuntia-monacantha-monstruosa.jpg">
+                <img src="fotos/senecio-articulatus.png" alt="Senecio articulatus" data-large-src="fotos/senecio-articulatus.png">
+                <img src="fotos/sedum-rubrotinctum-jelly-beans.jpg" alt="Sedum rubrotinctum" data-large-src="fotos/sedum-rubrotinctum-jelly-beans.jpg">
+                <img src="fotos/sedum-luteoviride.jpg" alt="Sedum luteoviride" data-large-src="fotos/sedum-luteoviride.jpg">
+                <img src="fotos/sedum-clavatum.jpg" alt="Sedum clavatum" data-large-src="fotos/sedum-clavatum.jpg">
+                <img src="fotos/pachyphytum-compactum.jpg" alt="Pachyphytum compactum" data-large-src="fotos/pachyphytum-compactum.jpg">
+                <img src="fotos/opuntia-microdasys.jpg" alt="Opuntia microdasys" data-large-src="fotos/opuntia-microdasys.jpg">
+                <img src="fotos/haworthia-cuspidata.jpg" alt="Haworthia Cuspidata" data-large-src="fotos/haworthia-cuspidata.jpg">
+                <img src="fotos/gasteria-pillansii.jpg" alt="Gasteria pillansi" data-large-src="fotos/gasteria-pillansii.jpg">
+                <img src="fotos/echeveria-setosa.jpg" alt="Echeveria Setosa" data-large-src="fotos/echeveria-setosa.jpg">
+                <img src="fotos/crassula-pellucida.jpg" alt="Crassula Pellucida" data-large-src="fotos/crassula-pellucida.jpg">
+                <img src="fotos/corpuscularia-lehmannii.jpg" alt="Corpuscularia lehmannii" data-large-src="fotos/corpuscularia-lehmannii.jpg">
+            </div>
+        </div>
+    </div>
 
-  #particle-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 999;
-  }
-</style>
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Imagen grande" style="display: none;">
+        <div class="lightbox-content" id="lightbox-content-quiz" style="display: none;">
+            </div>
+    </div>
 
-<canvas id="particle-canvas"></canvas>
-<button id="suculenta-btn">🌵 Visita la colección</button>
+    <a href="https://unaleotromundo.github.io/otromundo/" class="floating-button-left">
+        <img src="coleccion1.png" alt="Suculenta 1">
+        <span>Colección 1</span>
+    </a>
+    <a href="https://unaleotromundo.github.io/otromundo/coleccion2/poe-preview.html" class="floating-button-right">
+        <img src="coleccion2.png" alt="Suculenta 2">
+        <span>Colección 2</span>
+    </a>
 
-<audio id="trip-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_6f742b5a9f.mp3" preload="auto"></audio>
-
-<script>
-  const btn = document.getElementById('suculenta-btn');
-  const body = document.body;
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas.getContext('2d');
-  const audio = document.getElementById('trip-sound');
-  let particles = [];
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-
-  function createParticles() {
-    for (let i = 0; i < 100; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 6 + 2,
-        dx: (Math.random() - 0.5) * 2,
-        dy: (Math.random() - 0.5) * 2,
-        color: `hsl(${Math.random() * 360}, 100%, 60%)`
-      });
-    }
-  }
-
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let p of particles) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
-      p.x += p.dx;
-      p.y += p.dy;
-    }
-    requestAnimationFrame(animateParticles);
-  }
-
-  btn.addEventListener('click', () => {
-    body.classList.add('psychedelic');
-    audio.play();
-    btn.style.display = 'none';
-    createParticles();
-    animateParticles();
-
-    setTimeout(() => {
-      window.location.href = "https://unaleotromundo.github.io/otromundo/";
-    }, 3500);
-  });
-</script>
+    <script src="plantascompletas.js"></script>
+    <script src="signoszodiacales.js"></script> 
+<script src="script.js"></script>
 </body>
 </html>
