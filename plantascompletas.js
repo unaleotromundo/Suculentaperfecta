@@ -302,7 +302,7 @@ const plantasCompletas = [
       "La frescura de tu espíritu es tu guía en el camino."
     ],
     descripcionExtendida: "El Senecio articulatus, conocido comúnmente como 'Planta del Incienso' o 'Hot Dog Cactus', es una suculenta arbustiva con tallos carnosos y segmentados que parecen salchichas o 'articulaciones'. Sus tallos son de color verde grisáceo y, en condiciones de estrés, pueden desarrollar tonos rosados o púrpuras. En invierno, cuando la planta está inactiva, sus hojas caen y los tallos quedan expuestos, mostrando su forma única. Produce pequeñas flores blancas o amarillentas. Es una planta fácil de cuidar y muy distintiva por su morfología.",
-    imagenUrl: "fotos/senecio-articulatus.jpg"
+    imagenUrl: "fotos/senecio-articulatus.png"
   },
   {
     key: "sedum-rubrotinctum-jelly-beans",
@@ -554,79 +554,4 @@ const plantasCompletas = [
     descripcionExtendida: "La Corpuscularia lehmannii es una suculenta de crecimiento bajo que forma densas matas de hojas carnosas, triangulares y de color verde azulado a grisáceo. Sus hojas son gruesas y se agrupan en tallos cortos, dándole un aspecto compacto y denso. Produce pequeñas flores amarillas brillantes que se abren con el sol. Es una planta muy resistente y fácil de cuidar, ideal para jardines de rocas, macetas o como cobertura de suelo, especialmente en climas secos.",
     imagenUrl: "fotos/corpuscularia-lehmannii.jpg"
   },
-    {
-    key: "sedeveria-maialen",
-    nombre: "Sedeveria 'Maialen'",
-    signos: ["Piscis", "Cáncer", "Libra"],
-    vida: ["Calma", "Intuición"],
-    elementos: ["Agua", "Tierra"],
-    niveles: ["Emocional", "Espiritual"],
-    short: "Hojas suaves, roseta compacta, tranquilizante.",
-    descripcion: "Aporta calma, facilita la intuición y nutre la sensibilidad.",
-    energia: "calma, intuición, sanación",
-    arquetipos: [
-      "La suavidad de la vida te acuna, trayendo calma a tu ser.",
-      "Escucha la voz de tu intuición, te guiará con sabiduría.",
-      "El agua de la vida fluye a través de ti, sanando y purificando.",
-      "En la quietud, encontrarás las respuestas que buscas.",
-      "Tu sensibilidad es un don, te conecta con el universo.",
-      "La paz te envuelve, trayendo serenidad a tu corazón.",
-      "Como la luna, tu intuición brilla en la oscuridad.",
-      "La armonía se construye desde adentro hacia afuera.",
-      "Permite que la calma te guíe hacia la sanación.",
-      "Tu espíritu es un remanso de paz, un santuario de luz."
-    ],
-    descripcionExtendida: "La Sedeveria 'Maialen' es un híbrido intergenérico que combina características de Sedum y Echeveria, formando rosetas compactas de hojas carnosas, ovaladas y de color verde pálido, a menudo con un suave tinte rosado en los bordes. Es una planta de crecimiento bajo, ideal para macetas y arreglos de suculentas, apreciada por su aspecto delicado y su fácil cultivo. Produce pequeñas flores amarillas en tallos altos.",
-    imagenUrl: "fotos/sedeveria-maialen.jpg"
-  },
-  {
-    key: "kalanchoe-tomentosa",
-    nombre: "Kalanchoe tomentosa (Orejas de Conejo)",
-    signos: ["Tauro", "Virgo", "Cáncer"],
-    vida: ["Confort", "Protección"],
-    elementos: ["Tierra", "Agua"],
-    niveles: ["Físico", "Emocional"],
-    short: "Hojas peludas, suave y protectora, reconfortante.",
-    descripcion: "Ofrece confort, protección y un suave abrazo en momentos de vulnerabilidad.",
-    energia: "confort, protección, seguridad",
-    arquetipos: [
-      "La suavidad te envuelve, protegiéndote con ternura.",
-      "Tu piel es tu armadura, pero tu corazón es tu hogar.",
-      "El abrazo de la vida te ofrece seguridad y calma.",
-      "En la protección de tu espacio, encuentras la paz.",
-      "Permite que la suavidad te guíe a un refugio seguro.",
-      "La vida te susurra dulzura, escúchala con el alma.",
-      "Tu esencia es como un algodón, pura y reconfortante.",
-      "El calor del hogar te envuelve, disipando las preocupaciones.",
-      "Sé tu propio refugio, tu propio lugar seguro.",
-      "La dulzura es una forma de fuerza, una caricia al alma."
-    ],
-    descripcionExtendida: "El Kalanchoe tomentosa, popularmente conocido como 'Orejas de Conejo' o 'Planta Panda', es una suculenta muy distintiva por sus hojas gruesas, ovaladas y cubiertas de una densa capa de vellosidades plateadas o grisáceas que le dan un aspecto suave y aterciopelado. Los bordes de las hojas a menudo están marcados con manchas marrones o rojizas. Es una planta de crecimiento lento a moderado, ideal para interiores y es apreciada por su textura única y su fácil cuidado.",
-    imagenUrl: "fotos/kalanchoe-tomentosa.jpg"
-  },
-  {
-    key: "gasteria-verrucosa",
-    nombre: "Gasteria verrucosa (Lengua de Vaca)",
-    signos: ["Capricornio", "Escorpio", "Virgo"],
-    vida: ["Resistencia", "Autenticidad"],
-    elementos: ["Tierra"],
-    niveles: ["Físico", "Mental"],
-    short: "Hojas con verrugas, robusta, autenticidad.",
-    descripcion: "Fomenta la autenticidad, la resistencia y la conexión con lo real.",
-    energia: "resistencia, autenticidad, anclaje",
-    arquetipos: [
-      "Tu autenticidad es tu mayor fuerza, no la disfraces.",
-      "La textura de tu vida te hace único y real.",
-      "En cada cicatriz, hay una historia de resistencia y verdad.",
-      "Ancla tus pies en la tierra, tu verdad es tu refugio.",
-      "La resistencia se construye con la aceptación de lo que eres.",
-      "Tu fuerza no reside en ser suave, sino en ser genuino.",
-      "Cada imperfección es una marca de tu belleza única.",
-      "Sé valiente para mostrar tus verdaderas texturas.",
-      "La vida te invita a ser crudo, real y profundamente tú.",
-      "La verdad está en lo que sientes, no en lo que aparentas."
-    ],
-    descripcionExtendida: "La Gasteria verrucosa, también conocida como 'Lengua de Vaca', es una suculenta que forma rosetas sin tallo de hojas gruesas, alargadas y de color verde oscuro, cubiertas con numerosas protuberancias blancas ('verrugas') que le dan una textura áspera y distintiva. Sus hojas se disponen en dos hileras opuestas. Produce flores tubulares de color rosado a anaranjado en tallos largos. Es una planta muy resistente y de fácil cuidado, ideal para interiores o jardines de sombra.",
-    imagenUrl: "fotos/gasteria-verrucosa.jpg"
-  }
 ];
